@@ -5,9 +5,6 @@
 **A** Algorithme réalisé
 **C** Code réalisé
 
-####Liste immédiate
-* Déterminer le mode d'utilisation des fonctions (méthode de l'objet image avec/sans sortie/entrée ou fonction indépendante ?)
-
 ####Liste générale
 *Ordre donné à titre indicatif*
 
