@@ -6,6 +6,9 @@ public:
 	int getB(); // Récupère la composante Bleu
 	int getG(); // Récupère la composante Gris
 	bool getN(); // Récupère la composante Noir
+	int getTypeComposantes(); // Récupère le type de composante
+	int getMaxComposantes(); // Récupère le maximum de composante
+
 	int setR(int R); // Change la composante Rouge
 	int setV(int V); // Change la composante Vert
 	int setB(int B); // Change la composante Bleu
@@ -24,6 +27,12 @@ private:
 
 class Image {
 public:
-	int Image(int dimensionX, int dimensionY, int maxComposante); // Crée l'objet Image
+	int Image(int dimensionX, int dimensionY, int maxComposante, int typeComposantes); // Crée l'objet Image
 	int point(int x, int y, Pixel pixel); // Définit une couleur au point
+	Pixel getPoint(int x, int y);
+
+private:
+	int m_typeComposantes; // 0 : N&B, 1 : Niveaux de gris, 2 : RVB
+	int m_maxComposante; // Maximum de composante (inutilisé pour binaire)
+	vector< vector< Pixel > > m_tab;
 };

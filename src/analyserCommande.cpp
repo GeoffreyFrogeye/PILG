@@ -1,0 +1,3 @@
+function analyserCommande(string nom) {
+
+}

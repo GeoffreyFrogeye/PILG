@@ -1,8 +1,14 @@
 #include <iostream>
 #include <string>
-#include "SDL/SDL.h"
+
+#include "affichageFenetreSDL.cpp" // Devrait charger le .h mais le programme est relativement simple (sans Makefile) donc on assemble tout en même temps
+
 
 using namespace std;
+
+// Insertion des ensembles de fonctions massives séparés pour plus de clarté
+#include "analyserCommande.cpp"
+#include "traitementImage.cpp"
 
 int main(int argc, char* args[]) {
 
@@ -11,13 +17,7 @@ int main(int argc, char* args[]) {
 	freopen("CON", "w", stderr);
 #endif
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-
-    SDL_Quit();
+	cout << "PILG" << endl; // Message d'entrée et de test
 
     return 0;
-}
-
-int analyserCommande(string commande) {
-
 }
