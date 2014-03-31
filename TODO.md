@@ -1,9 +1,9 @@
 #À réaliser
 
 ####Légende
-**D** Définition réalisée
-**A** Algorithme réalisé
-**C** Code réalisé
+* **D** Définition réalisée
+* **A** Algorithme réalisé
+* **C** Code réalisé
 
 ####Liste générale
 *Ordre donné à titre indicatif*
