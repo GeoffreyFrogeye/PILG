@@ -15,9 +15,9 @@
     * Correspondance commandes ↔ fonctions
 * Objets
     * Fenêtre **D**
-        * SDL
-        * BGI
-    * Pixel **D**
+        * SDL **C**
+        * BGI **A**
+    * Pixel **C**
     * Image **D**
 * Fonctions **D**
     * Gestion de fichier

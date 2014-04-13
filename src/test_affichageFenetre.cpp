@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "affichageFenetreSDL.cpp" // Devrait charger le .h mais le programme est relativement simple (sans Makefile) donc on assemble tout en même temps
+#include "affichageFenetreBGI.cpp"
 
 using namespace std;
 
