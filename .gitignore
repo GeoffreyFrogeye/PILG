@@ -1,3 +1,2 @@
-compile*
-bin/*
 *.sublime-*
+generator/nodes_modules/*

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Compilation</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="css/contenu.css" />
+		<link rel="stylesheet" href="css/miseEnPage.css" />
+		<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	</head>
+	<body>
+			<nav>
+				<ul>
+<li><a href="index.html">À propos</a></li>
+<li><a href="Compilation.html">Compilation</a></li>
+<li><a href="Avancement.html">Avancement</a></li>
+<li><a href="https://github.com/GeoffreyFrogeye/PILG">Code source</a></li>
+
+				</ul>
+			</nav>
+		<div id="wrapper">
+			<section id="main">
+				<article>
+					<h1>Compilation</h1>
+<h2>Windows</h2>
+
+<ol><li>Télécharger et installer <a href="http://www.mingw.org/">MinGW</a></li><li>Inclure <strong>MinGW</strong> dans la variable d&#39;environnement <code>%PATH%</code> : <code>set path=%path%;C:\MinGW\bin</code></li><li>Créer le dossier <em>bin</em> à la racine du dépôt : <code>mkdir bin</code></li><li>Télécharger la <a href="http://www.libsdl.org/release/SDL-devel-1.2.15-mingw32.tar.gz">bibliothèque de développement SDL 1.2.15</a>, copier le contenu des dossier <em>lib</em> et <em>include</em> de l&#39;archive téléchargée dans le dossier de <strong>MinGW</strong></li><li>Télécharger la <a href="http://www.libsdl.org/release/SDL-1.2.15-win32.zip">bibliothèque d’exécution de SDL 1.2.15</a> et placer <em>SDL.dll</em> dans le dossier <em>bin</em></li><li>Compiler : <code>g++ src/main.cpp -o bin/main.exe -lmingw32 -lSDLmain -lSDL -static-libgcc -static-libstdc++</code></li></ol>
+
+<p>L’exécutable se trouvera dans le dossier <em>bin</em></p>
+
+<h2>Linux</h2>
+
+<ol><li>Installer la <strong>bibliothèque de développement SDL 1.2</strong> : <code>sudo apt-get install libsdl1.2-dev</code></li><li>Créer le dossier <em>bin</em> à la racine du dépôt : <code>mkdir bin</code></li><li>Compiler : <code>g++ src/main.cpp -o bin/main -lSDLmain -lSDL</code></li></ol>
+
+<p>L’exécutable se trouvera dans le dossier <em>bin</em></p>
+				</article>
+			</section>
+		</div>
+		<footer>
+			<hr/>
+Copyright 2014 Geoffrey et Lucas
+		</footer>
+	</body>
+</html>
