@@ -1,34 +1,39 @@
 #include <vector>
 
-typedef Pixel {
-	int typeComposantes;
-	int maxComposante;
-	int r;
-	int v;
-	int b;
-	int g;
-	bool n;
+typedef enum {PILG_BIN, PILG_NIV, PILG_RVB} PILG_Comp;
 
+typedef struct Pixel {
+    PILG_Comp typeComposantes;
+    unsigned int maxComposante;
+    unsigned int r;
+    unsigned int v;
+    unsigned int b;
+    unsigned int g;
+    bool n;
 } Pixel;
 
 class Image {
 public:
-	int Image(int dimensionX, int dimensionY, int maxComposante, int typeComposantes); // Crée l'objet Image
-	// Getters
-	int g_dimensionX();
-	int g_dimensionY();
-	int g_typeComposante();
-	int g_maxComposante();
-	Pixel g_point(int x, int y);
-	// Setters
-	int s_point(int x, int y, Pixel pixel);
+    Image(unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes);
+    // Getters
+    unsigned int g_dimensionX() const;
+    unsigned int g_dimensionY() const;
+    PILG_Comp g_typeComposantes() const;
+    unsigned int g_maxComposante() const;
+    int g_point(unsigned int x, unsigned int y, Pixel &pixel) const;
+    // Setters
+    int s_point(unsigned int x, unsigned int y, Pixel pixel);
+    // Utilitaires
+    Pixel g_pixelVide() const;
 
 private:
-	bool enLimitesComposantes(Pixel pixel);
-	bool enLimites(int x, int y);
-	int m_dimensionX;
-	int m_dimensionY;
-	int m_typeComposantes; // 0 : N&B, 1 : Niveaux de gris, 2 : RVB
-	int m_maxComposante; // Maximum de composante (inutilisé pour binaire)
-	vector< vector< Pixel > > m_tab;
+    // Utilitaires
+    static bool enLimitesComposantes(Pixel pixel);
+    bool enLimites(unsigned int x, unsigned int y) const;
+    // Variables
+    unsigned int m_dimensionX;
+    unsigned int m_dimensionY;
+    PILG_Comp m_typeComposantes;  // 0 : N&B, 1 : Niveaux de gris, 2 : RVB
+    unsigned int m_maxComposante;  // Maximum de composante (sauf binaire)
+    std::vector< std::vector< Pixel > > m_tab;
 };

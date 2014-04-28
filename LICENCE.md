@@ -1,1 +1,1 @@
-*Copyright 2014 Geoffrey et Lucas*
+*Copyright 2014 Lucas et Geoffrey*
