@@ -56,7 +56,7 @@ function genererPages(liste) {
                         .replace(/%%TITRE%%/g, element.titre)
                         .replace(/%%NAV%%/, nav)
                         .replace(/%%CONTENU%%/, element.contenu)
-                        .replace(/%%LICENSE%%/, 'Copyright 2014 Geoffrey et Lucas');
+                        .replace(/%%LICENSE%%/, 'Copyright 2014 Lucas et Geoffrey');
                     fs.writeFile('../' + element.titreCourt + '.html', contenuHTML, function (err) {
                         if (!err) {
                             console.log('Écrit ' + element.titreCourt + '.html');
@@ -80,11 +80,10 @@ function executer() {
             .toString('utf-8')
             .replace(/##Compilation\n/, '%%SPLIT%%')
             .replace(/Nos noms complets et le nom du lycée sont masqués pour des raisons d'intimité\. Les personnes devant nous reconnaître nous reconnaîtront\./g, '')
-            .replace(/##De ce dépôt[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\'\,\(\)\n]+?##/g, '#')
+            .replace(/##Le dépôt[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\'\,\(\)\n]+?##/g, '#')
             .replace(/#(#+)/g, '$1')
             .replace(/^#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, '')
             .replace(/\n#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, '')
-            .replace(/(De ce)|(Du)/g, 'Le')
             .replace(/-+\n\*Copyright[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\*/g, '')
             .split('%%SPLIT%%');
         liste.push({
@@ -100,7 +99,8 @@ function executer() {
                 contenu: markdown.toHTML(contenu
                     .toString('utf-8')
                     .replace(/^#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, '')
-                    .replace(/\n#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, ''))
+                    .replace(/\n#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, '')
+                    .replace(/-+\n\*Copyright[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\*/g, ''))
                     .replace(/<strong>([DAC])<\/strong>/g, '<span class="todoEl todo_$1">$1</span>')
             }, {
                 titre: 'Code source',

@@ -1,5 +1,20 @@
-#wrapper {
+body {
+    background-color: #ddd;
+}
+
+section {
 	margin-top: 50px;
+}
+
+section header, section article {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+header h1 {
+    font-size: xx-large;
 }
 
 nav {
@@ -13,7 +28,7 @@ nav {
 }
 
 nav ul {
-    margin: 5px 0px 5px 0px;
+    margin: 5px 0 5px 0;
 }
 
 nav li {
@@ -35,7 +50,7 @@ nav a {
 nav ul li:before {
 	content: '•';
 	color: #aaa;
-	margin: 0px 5px 0px 5px;
+	margin: 0 5px 0 5px;
 	display: inline-block;
 }
 
