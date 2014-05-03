@@ -1,3 +1,3 @@
-function analyserCommande(string nom) {
+int analyserCommande(string nom) {
 
 }

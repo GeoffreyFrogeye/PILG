@@ -107,7 +107,7 @@ int contraste(Image entree, Image &sortie, float contraste) { // Accentue les co
 }
 
 // Dessin
-int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel, pixel) { // Dessine un trait d'un point (x1,y1 à un point (x2,y2)
+int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pixel) { // Dessine un trait d'un point (x1,y1 à un point (x2,y2)
 
 }
 int rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2) {

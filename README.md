@@ -12,7 +12,9 @@ Nos noms complets et le nom du lycée sont masqués pour des raisons d'intimité
 ###Le programme
 Ce programme est un éditeur basique d'images [PBM/PGM/PPM](http://fr.wikipedia.org/wiki/Portable_pixmap) s’exécutant en ligne de commande.
 
-*Statut :* Prétotype
+*Version :* Prétotype
+
+*Status :* [![Build Status](https://travis-ci.org/GeoffreyFrogeye/PILG.svg?branch=master)](https://travis-ci.org/GeoffreyFrogeye/PILG)
 
 ##Compilation
 Il n'existe pas de fichier binaire à télécharger pour le moment, le seul moyen d'avoir un aperçu du programme est de le compiler.

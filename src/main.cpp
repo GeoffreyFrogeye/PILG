@@ -2,6 +2,7 @@
 #include <string>
 
 #include "affichageFenetreSDL.cpp"
+#include "image.h"
 
 using namespace std;
 

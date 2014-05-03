@@ -13,7 +13,7 @@ SRCPATH = src/
 main: main.o image.o
 	$(CXX) $(OBJPATH)main.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGS)
 
-test: test.o image.o
+testing: test.o image.o
 	$(CXX) $(OBJPATH)test.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGS)
 
 # Dépendances
