@@ -101,7 +101,7 @@ function executer() {
                     .replace(/^#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, '')
                     .replace(/\n#[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\n/g, '')
                     .replace(/-+\n\*Copyright[ \wæâ€êÿûîœôäßëðüïö©éÉèÈçÇàÀ\.\-\']+\*/g, ''))
-                    .replace(/<strong>([DAC])<\/strong>/g, '<span class="todoEl todo_$1">$1</span>')
+                    .replace(/<strong>([DAC])<\/strong>/g, '<span class="todoEl todo_$1">$1</span>') + '\n<img src="chart.png" alt="Fonctionnement du programme" />'
             }, {
                 titre: 'Code source',
                 lien: 'https://github.com/GeoffreyFrogeye/PILG'
