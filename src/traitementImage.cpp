@@ -1,33 +1,28 @@
 // Gestion de fichiers 
-int creer(Image &sortie, int dimensionX, int dimensionY, int typeComposante, int maxComposante) { // Créer une image de dimensions X et Y
+int creer(Image &sortie, unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes) { // Créer une image de dimensions X et Y
+
+sortie = new Image(dimensionX, dimensionY, maxComposante, typeComposantes); // Nouvelle
 
 }
-int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à partir du nom du fichier
+int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à partir du nom du fichier ***Geoffrey
 
 }
 int sauver(Image entree, string nomFichier) { // Sauvegarder l'image obtenue dans un nouveau fichier
 
 }
 int import(Image entree, Image &sortie, string nomFichier, int x, int y) {
+    // Image fichierImporte;
+    // sortie = entree
+    // ouvrir(fichierImporte, nomFichier)
+    // Pour x1 = 0 to x1 = fichierImporte.g_dimensionX
+        // Pour y1 = 0 to y1 = fichierImporte.g_dimensionY
+            // sortie.s_pixel(x1 + x, y1 + y, fichierImporte.g_pixel(x1, x2));
+        // FinPour
+    // FinPour 
 
 }
 
-// Edition
-int copier() { // Copie tous les pixels
-
-}
-int couper() { // Copie et remplace par du blanc tous les pixels
-
-}
-int coller() { // Coller les pixels copiés ou coupés.
-
-}
-int annuler() { // Annuler la dernière action.
-
-}
-int refaire() { // répeter la dernière action
-
-}
+// Edition ***Geoffrey
 
 // Couleur
 int teinte(Image entree, Image &sortie, float teinte) { // Change la teinte de l'image
@@ -69,8 +64,8 @@ int teinte(Image entree, Image &sortie, float teinte) { // Change la teinte de l
 }
 
 int saturation(Image entree, Image &sortie, float saturation) { // Sature l'image
-    // Pour x = xMin to x = xMax
-        // Pour y = yMin to y = yMax
+    // Pour x = image.g_DimensionX()
+        // Pour y = image.g_DimensionY()
             // Ajouter la variable saturation à chaque valeur de chaque pixel
             // Ne pas dépasser le seuil limite MaxComposante !!!
         // Fin Pour
@@ -95,7 +90,7 @@ int luminosite(Image entree, Image &sortie, float luminosite) { // Augmente la l
 }
 int contraste(Image entree, Image &sortie, float contraste) { // Accentue les contrastes de l'image
     // pour x=0 à x=image.g_dimensionX()
-        //pour y=0 à x=image.g_DimensionY()
+        //pour y=0 à y=image.g_DimensionY()
             //si image.g_typeComposante=1
                 //pixel = image.g_point(x,y);
                 //pixel.g = contraste*pixel.g;
@@ -107,13 +102,38 @@ int contraste(Image entree, Image &sortie, float contraste) { // Accentue les co
 }
 
 // Dessin
-int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pixel) { // Dessine un trait d'un point (x1,y1 à un point (x2,y2)
+int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pixel) { // Dessine un trait d'un point (x1,y1) à un point (x2,y2)
+//    int x, y, dx, dy ;
+//    float e, e(1,0), e(0,1) ;  // valeur d’erreur et incréments
+//    dy ← y2 - y1 ;
+//    dx ← x2 - x1 ;
+//    y ← y1 ;  // rangée initiale
+//    e ← 0,0 ;  // valeur d’erreur initiale
+//    e(1,0) ← dy / dx ;
+//    e(0,1) ← -1.0 ;
+//          pour x variant de x1 jusqu’à x2 par incrément de 1 faire
+//              tracerPixel(x, y) ;
+//                  si (e ←  e + e(1,0)) ≥ 0,5 alors  // erreur pour le pixel suivant de même rangée
+//                      y ←  y + 1 ;  // choisir plutôt le pixel suivant dans la rangée supérieure
+//                      e ←  e + e(0,1) ;  // ajuste l’erreur commise dans cette nouvelle rangée
+//                  fin si ;
+//          fin pour ;
+//fin procédure ;
 
 }
-int rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2) {
+int rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel couleur) {
+    // sortie = entree    
+    // pour x=x1 à x=x2
+        //pour y=y1 à y=y2
+            //sortie.s_pixel(x, y, couleur)
+        // FinPour
+    // FinPour
 
 }
 int cercle(Image entree, Image &sortie, int x, int y, int r) {
+
+}
+int disque(Image entree, Image &sortie, int x, int y, int r) {
 
 }
 
@@ -122,6 +142,9 @@ int zoom(Image entree, Image &sortie) {
 
 }
 int pivoter(Image entree, Image &sortie) {
+
+}
+int retourner(Image entree, Image &sortie) {
 
 }
 int redimensionner(Image entree, Image &sortie) {
@@ -141,5 +164,5 @@ int convRVB(Image entree, Image &sortie) {
 
 //Help
 int aide() {
-
+    //Afficher le texte suivant :
 }
