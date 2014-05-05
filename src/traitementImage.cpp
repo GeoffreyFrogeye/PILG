@@ -130,10 +130,10 @@ int rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel
     // FinPour
 
 }
-int cercle(Image entree, Image &sortie, int x, int y, int r) {
+int cercle(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
 
 }
-int disque(Image entree, Image &sortie, int x, int y, int r) {
+int disque(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
 
 }
 
@@ -144,10 +144,18 @@ int zoom(Image entree, Image &sortie) {
 int pivoter(Image entree, Image &sortie) {
 
 }
-int retourner(Image entree, Image &sortie) {
+int retourner(Image entree, Image &sortie, int rotation) {
 
 }
-int redimensionner(Image entree, Image &sortie) {
+int redimensionner(Image entree, Image &sortie, int x1, int x2, int y1, int y2) {
+    // sortie = new Image(x2-x1, y2-y1, entree.g_maxComposante(), entree.g_typeComposantes())
+    // pour x=x1 à x=x2
+        //pour y=y1 à y=y2
+            // sortie.s_pixel(x, y, entree.g_pixel(x+x1, y+y1));
+        // FinPour
+    // FinPour
+
+
 
 }
 
