@@ -10,21 +10,19 @@
 
 * Fonction principale
 * Fonction d'analyse de commande
-    * Analyse de la commande
+    * Analyse de la commande **C**
     * Analyse des arguments
-    * Correspondance commandes ↔ fonctions
-* Objets **D**
-    * Fenêtre **D**
-        * SDL **C**
-        * BGI **A**
+    * Correspondance commandes ↔ fonctions **D**
+* Objets **C**
+    * Fenêtre **C**
     * Pixel **C**
     * Image **C**
 * Fonctions **D**
     * Gestion de fichier **D**
-        * Créer
-        * Ouvrir
-        * Enregistrer
-        * Importer
+        * Créer **C**
+        * Ouvrir **D**
+        * Enregistrer **D**
+        * Importer **A**
     * Édition
         * Copier tout
         * Couper tout
@@ -32,23 +30,24 @@
         * Annuler
         * Refaire
     * Couleur **D**
-        * Teinte **D**
+        * Teinte **A**
         * Saturation **D**
-        * Luminosité **D**
-        * Contraste **D**
+        * Luminosité **A**
+        * Contraste **A**
     * Dessin **D**
-        * Trait
-        * Rectangle
-        * Cercle
-        * Disque
+        * Trait **D**
+        * Rectangle **A**
+        * Cercle **D**
+        * Disque **D**
     * Géométrie **D**
-        * Zoom
-        * Pivot
-        * Redimensionner
+        * Zoomer
+        * Pivoter
+        * Retourner **D**
+        * Redimensionner **A**
     * Conversion du mode **D**
-        * Binaire
-        * Niveaux de gris
-        * Couleur
+        * Binaire **D**
+        * Niveaux de gris **D**
+        * Couleur **D**
     * Aide
 * Documentation
 

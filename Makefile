@@ -3,7 +3,8 @@
 .PHONY: clean, mrproper
 ## Compilation
 CXX = g++
-CXXFLAGS = -lSDL -lSDLmain -DDEBUG
+CXXFLAGS = -lSDL -lSDLmain
+CXXFLAGSDEBUG = -lSDL -lSDLmain -DDEBUG
 ## Chemins
 EXEPATH = bin/
 OBJPATH = obj/
@@ -14,14 +15,14 @@ main: main.o image.o
 	$(CXX) $(OBJPATH)main.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGS)
 
 testing: test.o image.o
-	$(CXX) $(OBJPATH)test.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGS)
+	$(CXX) $(OBJPATH)test.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGSDEBUG)
 
 # Dépendances
 main.o: $(SRCPATH)main.cpp $(SRCPATH)image.h
 	$(CXX) -c $< -o $(OBJPATH)$@ $(CXXFLAGS)
 
 test.o: $(SRCPATH)test.cpp $(SRCPATH)image.cpp
-	$(CXX) -c $< -o $(OBJPATH)$@ $(CXXFLAGS)
+	$(CXX) -c $< -o $(OBJPATH)$@ $(CXXFLAGSDEBUG)
 
 image.o: $(SRCPATH)image.cpp
 	$(CXX) -c $< -o $(OBJPATH)$@
