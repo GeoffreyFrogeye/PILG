@@ -8,11 +8,11 @@
 ###Liste générale
 *Ordre donné à titre indicatif*
 
-* Fonction principale
-* Fonction d'analyse de commande
+* Fonction principale **C**
+* Fonction d'analyse de commande **D**
     * Analyse de la commande **C**
-    * Analyse des arguments
-    * Correspondance commandes ↔ fonctions **D**
+    * Analyse des arguments **D**
+    * Execution des fonctions **C**
 * Objets **C**
     * Fenêtre **C**
     * Pixel **C**
@@ -36,7 +36,7 @@
         * Contraste **A**
     * Dessin **D**
         * Trait **D**
-        * Rectangle **A**
+        * Rectangle **C**
         * Cercle **D**
         * Disque **D**
     * Géométrie **D**

@@ -28,8 +28,8 @@ unsigned int Image::g_maxComposante() const {
     return m_maxComposante;
 }
 
-int Image::g_point(unsigned int x, unsigned int y, Pixel &pixel) const {
-    if (enLimites(x, y)) {
+int Image::g_pixel(unsigned int x, unsigned int y, Pixel &pixel) const {
+    if (v_dimensions(x, y)) {
         pixel = m_tab[x][y];
         return 0;
     } else {
@@ -38,11 +38,8 @@ int Image::g_point(unsigned int x, unsigned int y, Pixel &pixel) const {
 }
 
 // Setters
-int Image::s_point(unsigned int x, unsigned int y, Pixel pixel) {
-    if (enLimites(x, y)
-            && pixel.typeComposantes == m_typeComposantes
-            && pixel.maxComposante == m_maxComposante
-            && enLimitesComposantes(pixel)) {
+int Image::s_pixel(unsigned int x, unsigned int y, Pixel pixel) {
+    if (v_dimensions(x, y) && v_pixel(pixel)) {
         m_tab[x][y] = pixel;
         return 0;
     } else {
@@ -71,25 +68,31 @@ Pixel Image::g_pixelVide() const {
     return pixel;
 }
 
-bool Image::enLimitesComposantes(Pixel pixel) {
-    switch (pixel.typeComposantes) {
-    case PILG_BIN:
-        return true;
-        break;
-    case PILG_NIV:
-        return (pixel.g <= pixel.maxComposante);
-        break;
-    case PILG_RVB:
-        return (pixel.r <= pixel.maxComposante
-                && pixel.v <= pixel.maxComposante
-                && pixel.b <= pixel.maxComposante);
-        break;
-    default:
+// Validateurs
+bool Image::v_pixel(Pixel pixel) const {
+    if  (pixel.typeComposantes == m_typeComposantes
+            && pixel.maxComposante == m_maxComposante) {
+        switch (pixel.typeComposantes) {
+        case PILG_BIN:
+            return true;
+            break;
+        case PILG_NIV:
+            return (pixel.g <= pixel.maxComposante);
+            break;
+        case PILG_RVB:
+            return (pixel.r <= pixel.maxComposante
+                    && pixel.v <= pixel.maxComposante
+                    && pixel.b <= pixel.maxComposante);
+            break;
+        default:
+            return false;
+            break;
+        }
+    } else {
         return false;
-        break;
     }
 }
 
-bool Image::enLimites(unsigned int x, unsigned int y) const {
+bool Image::v_dimensions(unsigned int x, unsigned int y) const {
     return (x >= 0 && x < m_dimensionX && y >= 0 && y < m_dimensionY);
 }

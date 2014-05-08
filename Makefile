@@ -11,21 +11,26 @@ OBJPATH = obj/
 SRCPATH = src/
 
 # Programmes possibles
-main: main.o image.o
-	$(CXX) $(OBJPATH)main.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGS)
+main: $(EXEPATH)main
+testing: $(EXEPATH)testing
 
-testing: test.o image.o
-	$(CXX) $(OBJPATH)test.o $(OBJPATH)image.o -o $(EXEPATH)$@ $(CXXFLAGSDEBUG)
+# Éxecutables
+$(EXEPATH)main: $(OBJPATH)main.o $(OBJPATH)image.o
+	$(CXX) $^ -o $@ $(CXXFLAGS)
+
+$(EXEPATH)testing: $(OBJPATH)testing.o $(OBJPATH)image.o
+	$(CXX) $^ -o $@ $(CXXFLAGSDEBUG)
 
 # Dépendances
-main.o: $(SRCPATH)main.cpp $(SRCPATH)image.h
-	$(CXX) -c $< -o $(OBJPATH)$@ $(CXXFLAGS)
+## Fichiers executables
+$(OBJPATH)main.o: $(SRCPATH)main.cpp $(SRCPATH)image.h
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-test.o: $(SRCPATH)test.cpp $(SRCPATH)image.cpp
-	$(CXX) -c $< -o $(OBJPATH)$@ $(CXXFLAGSDEBUG)
-
-image.o: $(SRCPATH)image.cpp
-	$(CXX) -c $< -o $(OBJPATH)$@
+$(OBJPATH)testing.o: $(SRCPATH)testing.cpp $(SRCPATH)image.cpp
+	$(CXX) -c $< -o $@ $(CXXFLAGSDEBUG)
+## Bibliothèques
+$(OBJPATH)image.o: $(SRCPATH)image.cpp
+	$(CXX) -c $< -o $@
 
 # Meta
 clean:
