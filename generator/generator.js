@@ -1,4 +1,4 @@
-#!/bin/env node
+#!/usr/bin/js
 
 /*jslint node: true, forin: true, indent: 4 */
 
@@ -68,7 +68,7 @@ function genererPages(liste) {
                 }
             });
         } else {
-            console.err('Impossible d\'ouvrir le fichier modèle');
+            console.error('Impossible d\'ouvrir le fichier modèle');
         }
     });
 }
