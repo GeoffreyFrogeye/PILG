@@ -41,7 +41,7 @@
         * Disque **D**
     * Géométrie **D**
         * Zoomer
-        * Pivoter
+        * Pivoter **C**
         * Retourner **D**
         * Redimensionner **A**
     * Conversion du mode **D**

@@ -16,7 +16,7 @@ void afficherImage(Image image) {
         fermerFenetre();
     }
 
-    ouvrirFenetre(dimensionX, dimensionY, "PILG - Test");
+    ouvrirFenetre(dimensionX, dimensionY, "PILG");
 
     for (x = 0; x < dimensionX; x++) {
         for (y = 0; y < dimensionY; y++) {

@@ -25,6 +25,7 @@ public:
     int s_pixel(unsigned int x, unsigned int y, Pixel pixel);
     // Utilitaires
     Pixel g_pixelVide() const;
+    Image g_vide() const;
     // Validateurs
     bool v_pixel(Pixel pixel) const;
     bool v_dimensions(unsigned int x, unsigned int y) const;

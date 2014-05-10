@@ -1,7 +1,10 @@
+#include <math.h>
+
+#define PI 3.14159265359
+
 // Gestion de fichiers
 void creer(Image &sortie, unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes) { // Créer une image de dimensions X et Y
-    Image *nouvelle = new Image(dimensionX, dimensionY, maxComposante, typeComposantes);
-    sortie = *nouvelle;
+    sortie = *new Image(dimensionX, dimensionY, maxComposante, typeComposantes);
 }
 
 void ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à partir du nom du fichier ***Geoffrey
@@ -147,8 +150,27 @@ void zoom(Image entree, Image &sortie) {
 
 }
 
-void pivoter(Image entree, Image &sortie) {
-
+void pivoter(Image entree, Image &sortie, int x0, int y0, float angle) {
+    sortie = entree.g_vide();
+    float xF, yF, angleF, xI, yI, angleI, h;
+    Pixel pixel = entree.g_pixelVide();
+    for (xF = 0; xF < entree.g_dimensionX(); xF++) {
+        for (yF = 0; yF < entree.g_dimensionY(); yF++) {
+            if (xF == x0 && yF == y0) {
+                xI = x0;
+                yI = y0;
+            } else {
+                angleF = atan((yF-y0)/(xF-x0));
+                angleF = (xF-x0<0 ? angleF + PI : (yF-y0 ? angleF + 2*PI: angleF));
+                angleI = angleF - angle;
+                h = sqrt(pow(xF-x0, 2)+pow(yF-y0, 2));
+                xI = cos(angleI)*h+x0;
+                yI = sin(angleI)*h+y0;
+            }
+            entree.g_pixel((int) xI, (int) yI, pixel);
+            sortie.s_pixel((int) xF, (int) yF, pixel);
+        }
+    }
 }
 
 void retourner(Image entree, Image &sortie, int rotation) {

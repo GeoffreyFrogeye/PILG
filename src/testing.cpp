@@ -8,6 +8,8 @@ using namespace std;
 #include "traitementImage.cpp"
 #include "analyserCommande.cpp"
 
+#define PI 3.14159265359
+
 Image genererRoue(int dimX, int dimY, int maxComposante) {
     Image imageRoue(dimX, dimY, maxComposante, PILG_RVB);
     Pixel pointRoue = imageRoue.g_pixelVide();
@@ -102,7 +104,7 @@ int main(int argc, char *args[]) {
     freopen("CON", "w", stderr);
 #endif
 
-    cout << "PILG - Debug" << endl;  // Message d'entrée et de test
+    cout << "PILG - Test" << endl;  // Message d'entrée et de test
 
     // // Analyse de commandes
     // if (argc > 1) {
@@ -115,21 +117,17 @@ int main(int argc, char *args[]) {
     //     boucleDeCommandes();
     // }
 
-    // // Afficher image par défaut
-    // // Image image = genererRoue(200, 200, 255);
-    // // Image image = genererDegrade(200, 200, 255);
-    // Image image = genererBruit(200, 200);
-    // Pixel couleurRectangle;
+    #define DIMENSIONS 256
 
-    // couleurRectangle = image.g_pixelVide();
-    // // couleurRectangle.b = 255;
-    // // couleurRectangle.g = 255;
-    // couleurRectangle.b = true;
+    Image imageOriginale = genererRoue(DIMENSIONS, DIMENSIONS, 255);
+    Image image = imageOriginale.g_vide();
+    while(1) {
+        for (float i = 0; i < 2 * PI; i += 0.1) {
+            pivoter(imageOriginale, image, DIMENSIONS/2, DIMENSIONS/2, i);
+            afficherImage(image);
+        }
+    }
 
-    // rectangle(image, image, 5, 5, 10, 10, couleurRectangle);
-
-    // afficherImage(image);
-    // attendreFenetre();
 
     // // Neige en dégradé
     // for (int i; i < 300; i++) {
@@ -170,8 +168,7 @@ int main(int argc, char *args[]) {
     // }
 
     // cout << "Éxecution du programme terminée. Vous pouvez quitter la fenêtre." << endl;
-    // attendreFenetre();
-    // fermerFenetre();
+    fermerFenetre();
 
     return 0;
 }

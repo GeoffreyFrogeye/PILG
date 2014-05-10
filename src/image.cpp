@@ -33,6 +33,7 @@ int Image::g_pixel(unsigned int x, unsigned int y, Pixel &pixel) const {
         pixel = m_tab[x][y];
         return 0;
     } else {
+        pixel = g_pixelVide();
         return 1;
     }
 }
@@ -60,12 +61,14 @@ Pixel Image::g_pixelVide() const {
         pixel.g = 0;
         break;
     case PILG_RVB:
-        pixel.r = 0;
-        pixel.b = 0;
-        pixel.v = 0;
+        pixel.r = pixel.v = pixel.b = 0;
         break;
     }
     return pixel;
+}
+
+Image Image::g_vide() const {
+    return Image(m_dimensionX, m_dimensionY, m_maxComposante, m_typeComposantes);
 }
 
 // Validateurs
