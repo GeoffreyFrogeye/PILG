@@ -102,6 +102,9 @@ void contraste(Image entree, Image &sortie, float contraste) { // Accentue les c
     //             if pixel.g > Image.g_maxComposante
     //                 pixel.g = Image.g_maxComposante
     //             end if
+    //        End If
+    //    Fin Pour
+    // Fin Pour
 
 
 }
@@ -123,7 +126,6 @@ void trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pi
     //                      e ←  e + e(0,1) ;  // ajuste l’erreur commise dans cette nouvelle rangée
     //                  fin si ;
     //          fin pour ;
-    //fin procédure ;
 
 }
 
@@ -137,12 +139,26 @@ void rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixe
 
 }
 
-void cercle(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
-
+void cercle(Image entree, Image &sortie, int x0, int y0, int r, Pixel couleur) {
+    // sortie=entree;
+    // pour x=0 à x=image.g_dimensionX()
+    //     pour y=0 à y=image.g_dimensionY()
+    //         si sqrt(pow(x-x0, 2) + pow(y-y0, 2)) == r
+    //             sortie.s_pixel(x, y, couleur);
+    //         Fin si
+    //     fin pour
+    // fin pour
 }
 
 void disque(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
-
+    // sortie=entree;
+    // pour x=0 à x=image.g_dimensionX()
+    //     pour y=0 à y=image.g_dimensionY()
+    //         si sqrt(pow(x-x0, 2) + pow(y-y0, 2)) <= r
+    //             sortie.s_pixel(x, y, couleur);
+    //         Fin si
+    //     fin pour
+    // fin pour
 }
 
 // Geométrie
@@ -189,11 +205,73 @@ void redimensionner(Image entree, Image &sortie, int x1, int x2, int y1, int y2)
 
 // Modification couleur
 void convBIN(Image entree, Image &sortie) {
+    Pixel pixel;
+    switch(entrée.g_typeComposantes) {
+        case PILG_BIN:
+            sortie=entree;
+             break;
+        case PILG_NIV:
+            sortie = new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_BIN);
+            pixelI = entree.g_pixelVide();
+            pixelF = sortie.g_pixelVide();
+            for (int x = 0; x <= entree.g_dimensionX(); x++) {
+                for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                    entree.g_pixel(x, y, pixelI);
+                    pixelF.n = (pixelI.g > entree.g_maxComposante/2);
+                    sortie.s_pixel(x, y, pixelF);
+                
+                }
+            }
+            break;
+        case PILG_RVB:
+            sortie = new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_BIN);
+            pixelI = entree.g_pixelVide();
+            pixelF = sortie.g_pixelVide();
+            for (int x = 0; x <= entree.g_dimensionX(); x++) {
+                for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                    entree.g_pixel(x, y, pixelI);
+                    pixelF.n = ((pixelI.r + pixelI.v + pixelI.b)/3 > entree._maxComposante/2);
+                    sortie.s_pixel(x, y, pixelF);
+                
+                }
+            }
+            break;
 
+    }
 }
 
 void convNIV(Image entree, Image &sortie) {
-
+        Pixel pixel;
+    switch(entrée.g_typeComposantes) {
+        case PILG_BIN:
+            sortie = new Image(entree.n_dimensionX(), entree.n_dimensionY(), 0, PILG_BIN);
+            pixelI = entree.g_pixelVide();
+            pixelF = sortie.g_pixelVide();
+            for (int x = 0; x <= entree.g_dimensionX(); x++) {
+                for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                    entree.g_pixel(x, y, pixelI);
+                    pixelF.g = (pixelI.n ? sortie.g_maxComposante() : 0);
+                    sortie.s_pixel(x, y, pixelF);
+                
+                }
+            }
+             break;
+        case PILG_NIV:
+            sortie = entree;
+            break;
+        case PILG_RVB:
+            sortie = new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_NIV);
+            pixelI = entree.g_pixelVide();
+            pixelF = sortie.g_pixelVide();
+            for (int x = 0; x <= entree.g_dimensionX(); x++) {
+                for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                    entree.g_pixel(x, y, pixelI);
+                    pixelF.n = (pixelI.r + pixelI.v + pixelI.b)/3;
+                    sortie.s_pixel(x, y, pixelF);
+                
+                }
+            }
+            break;
 }
 
 void convRVB(Image entree, Image &sortie) {
