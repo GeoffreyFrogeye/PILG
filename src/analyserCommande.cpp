@@ -2,8 +2,9 @@
 #include <string>
 #include <iostream>
 
-int chaineVersEntier(string chaine) {
-    return (int) chaine[0];
+int chaineVersEntier(string chaine, int &entier) {
+     entier = chaine[0];
+     return 0;
 }
 
 void afficherImage(Image image) {
@@ -117,14 +118,52 @@ int analyserDecoupe(Commande &commande, vector< string > decoupe, Image const &i
     // for (int i = 0; i < decoupe.size(); i++) { // DEBUG
     //     cout << "Argument " << i << " = " << decoupe[i] << endl;
     // }
-
     commande.couleur = image.g_pixelVide();
     commande.fonction = decoupe[0];
 
-    // Analyse des arguments
-    // for (int i = 1; i < decoupe.size(); i++) {
-    //     ...
-    // }
+    // // Analyse des arguments
+    for (int i = 1; i < decoupe.size(); i++) {
+        if (decoupe[i].at(0) == '-') {
+            if (decoupe[i] == "-x1" || decoupe[i] == "-x0" || decoupe[i] == "-x") {
+                commande.argumentsPresents.push_back("x1");
+                if (chaineVersEntier(decoupe[i+1], commande.x1)) {
+                    return 3;
+                }
+                i++;
+            } else if (decoupe[i] == "-y1" || decoupe[i] == "-y0" || decoupe[i] == "-y") {
+                commande.argumentsPresents.push_back("y1");
+                if (chaineVersEntier(decoupe[i+1], commande.y1)) {
+                    return 3;
+                }
+                i++;
+            } else if (decoupe[i] == "-x2") {
+                commande.argumentsPresents.push_back("x2");
+                if (chaineVersEntier(decoupe[i+1], commande.x2)) {
+                    return 3;
+                }
+                i++;
+            } else if (decoupe[i] == "-y2") {
+                commande.argumentsPresents.push_back("y2");
+                if (chaineVersEntier(decoupe[i+1], commande.y2)) {
+                    return 3;
+                }
+                i++;
+            } else if (decoupe[i] == "-couleur" || decoupe[i] == "-c") {
+                commande.argumentsPresents.push_back("couleur");
+                commande.couleur = image.g_pixelVide();
+                // Analyser deuxième partie
+                i++;
+            } else {
+                return 2;
+            }
+        } else {
+            return 1;
+        }
+    }
+
+    for (int i = 0; i < commande.argumentsPresents.size(); i++) { // DEBUG
+        cout << "Argument présent " << i << " = " << commande.argumentsPresents[i] << endl;
+    }
 
     return 0;
 }
@@ -140,12 +179,10 @@ bool argumentPresent(Commande commande, string argumentVoulu) {
 
 int executerCommande(Commande commande, Image &image) {
     if (commande.fonction == "rectangle") {
-        commande.couleur.v = image.g_maxComposante(); // DEBUG
-        rectangle(image, image, 5, 5, 10, 10, commande.couleur); // DEBUG
         if (argumentPresent(commande, "x1") && argumentPresent(commande, "x2")
                 && argumentPresent(commande, "y1") && argumentPresent(commande, "y2")
                 && argumentPresent(commande, "couleur")) {
-            // TODO
+                rectangle(image, image, commande.x1, commande.y1, commande.x2, commande.y2, commande.couleur);
         } else {
             return 2;
         }
@@ -172,8 +209,17 @@ void procederCommande(vector< string > decoupe, Image &image) {
             messageErreur("Impossible d'éxecuter la fonction");
         }
         break;
+    case 1:
+        messageErreur("Argument inconnu");
+        break;
+    case 2:
+        messageErreur("Argument inconnu");
+        break;
+    case 3:
+        messageErreur("Impossible de comprendre un argument");
+        break;
     default:
-        messageErreur("Impossible d'analyse de la commande");
+        messageErreur("Impossible d'analyser la commande");
         break;
     }
 }

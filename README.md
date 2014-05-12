@@ -26,7 +26,7 @@ Téléchargement : ```git clone https://github.com/GeoffreyFrogeye/PILG.git```
 2. Inclure **MinGW** dans la variable d'environnement ```%PATH%``` : ```set path=%path%;C:\MinGW\bin```
 3. Télécharger la [bibliothèque de développement SDL 1.2.15](http://www.libsdl.org/release/SDL-devel-1.2.15-mingw32.tar.gz), copier le contenu des dossier *lib* et *include* de l'archive téléchargée dans le dossier de **MinGW**
 4. Télécharger la [bibliothèque d’exécution de SDL 1.2.15](http://www.libsdl.org/release/SDL-1.2.15-win32.zip) et placer *SDL.dll* dans le dossier *bin*
-5. Compiler : ```mingw32-make```
+5. Compiler : ```mingw32-make -f Makefile.win```
 
 L’exécutable se trouvera dans le dossier *bin*
 

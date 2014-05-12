@@ -106,27 +106,18 @@ int main(int argc, char *args[]) {
 
     cout << "PILG - Test" << endl;  // Message d'entrée et de test
 
-    // // Analyse de commandes
-    // if (argc > 1) {
-    //     vector< string > decoupe;
-    //     for (int i = 1; i < argc; i++) {
-    //         decoupe.push_back(args[i]);
-    //     }
-    //     analyserDecoupe(decoupe);
-    // } else {
-    //     boucleDeCommandes();
-    // }
+    Image image = genererRoue(256, 128, 255);
 
     #define DIMENSIONS 256
 
     Image imageOriginale = genererRoue(DIMENSIONS, DIMENSIONS, 255);
     Image image = imageOriginale.g_vide();
-    while(1) {
-        for (float i = 0; i < 2 * PI; i += 0.1) {
-            pivoter(imageOriginale, image, DIMENSIONS/2, DIMENSIONS/2, i);
-            afficherImage(image);
-        }
+    // while(1) {
+    for (float i = 0; i < 2 * PI; i += 0.1) {
+        pivoter(imageOriginale, image, DIMENSIONS/2, DIMENSIONS/2, i);
+        afficherImage(image);
     }
+    // }
 
 
     // // Neige en dégradé
