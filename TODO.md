@@ -9,9 +9,9 @@
 *Ordre donné à titre indicatif*
 
 * Fonction principale **C**
-* Fonction d'analyse de commande **D**
+* Fonction d'analyse de commande **C**
     * Analyse de la commande **C**
-    * Analyse des arguments **D**
+    * Analyse des arguments **C**
     * Execution des fonctions **C**
 * Objets **C**
     * Fenêtre **C**
@@ -35,18 +35,18 @@
         * Luminosité **A**
         * Contraste **A**
     * Dessin **D**
-        * Trait **D**
+        * Trait **A**
         * Rectangle **C**
-        * Cercle **D**
-        * Disque **D**
+        * Cercle **A**
+        * Disque **A**
     * Géométrie **D**
         * Zoomer
         * Pivoter **C**
         * Retourner **D**
         * Redimensionner **A**
     * Conversion du mode **D**
-        * Binaire **D**
-        * Niveaux de gris **D**
+        * Binaire **C**
+        * Niveaux de gris **C**
         * Couleur **D**
     * Aide
 * Documentation

@@ -51,6 +51,8 @@ Image imageDefaut() {
                 pointRoue.v = 0;
                 pointRoue.b = maxComposante - substep;
                 break;
+            default:
+                pointRoue.r = pointRoue.v = pointRoue.b = 0;
             }
 
             // Dégradé vers le noir

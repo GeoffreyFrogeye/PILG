@@ -1,21 +1,25 @@
 #include <math.h>
 
 #define PI 3.14159265359
+#define MAXCOMPOSANTEDEFAUT 255
 
 // Gestion de fichiers
-void creer(Image &sortie, unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes) { // Créer une image de dimensions X et Y
+int creer(Image &sortie, unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes) { // Créer une image de dimensions X et Y
     sortie = *new Image(dimensionX, dimensionY, maxComposante, typeComposantes);
+    return 0;
 }
 
-void ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à partir du nom du fichier ***Geoffrey
+int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à partir du nom du fichier ***Geoffrey
 
+    return 1;
 }
 
-void sauver(Image entree, string nomFichier, bool ASCII, string commentaire) { // Sauvegarder l'image obtenue dans un nouveau fichier
+int sauver(Image entree, string nomFichier, bool ASCII, string commentaire) { // Sauvegarder l'image obtenue dans un nouveau fichier
 
+    return 1;
 }
 
-void import(Image entree, Image &sortie, string nomFichier, int x, int y) {
+int importer(Image entree, Image &sortie, string nomFichier, int x, int y) {
     // Image fichierImporte;
     // sortie = entree
     // ouvrir(fichierImporte, nomFichier)
@@ -25,10 +29,11 @@ void import(Image entree, Image &sortie, string nomFichier, int x, int y) {
     //     FinPour
     // FinPour
 
+    return 1;
 }
 
 // Couleur
-void teinte(Image entree, Image &sortie, float teinte) { // Change la teinte de l'image
+int teinte(Image entree, Image &sortie, float teinte) { // Change la teinte de l'image
     // Si la teinte appartient à [0;1[
     //     r1 = 0
     //     r2 = 1
@@ -64,18 +69,20 @@ void teinte(Image entree, Image &sortie, float teinte) { // Change la teinte de 
     //         pixel.b = b1+(b2-b1)*valeur
     //     Fin Pour
     // Fin Pour
+    return 1;
 }
 
-void saturation(Image entree, Image &sortie, float saturation) { // Sature l'image
+int saturation(Image entree, Image &sortie, float saturation) { // Sature l'image
     // Pour x = image.g_DimensionX()
     //     Pour y = image.g_DimensionY()
     //         Ajouter la variable saturation à chaque valeur de chaque pixel
     //         Ne pas dépasser le seuil limite MaxComposante !!!
     //     Fin Pour
     // Fin Pour
+    return 1;
 }
 
-void luminosite(Image entree, Image &sortie, float luminosite) { // Augmente la luminosité de l'image
+int luminosite(Image entree, Image &sortie, float luminosite) { // Augmente la luminosité de l'image
     // Pour x=0 à x=image.g_DimensionX()
     //     Pour y=0 à y=image.g_DimensionY()
     //         si image.g_typeComposante=1
@@ -91,9 +98,10 @@ void luminosite(Image entree, Image &sortie, float luminosite) { // Augmente la 
     //         Fin si
     //     Fin Pour
     // Fin Pour
+    return 1;
 }
 
-void contraste(Image entree, Image &sortie, float contraste) { // Accentue les contrastes de l'image
+int contraste(Image entree, Image &sortie, float contraste) { // Accentue les contrastes de l'image
     // pour x=0 à x=image.g_dimensionX()
     //    pour y=0 à y=image.g_DimensionY()
     //        si image.g_typeComposante=1
@@ -107,10 +115,11 @@ void contraste(Image entree, Image &sortie, float contraste) { // Accentue les c
     // Fin Pour
 
 
+    return 1;
 }
 
 // Dessin
-void trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pixel) { // Dessine un trait d'un point (x1,y1) à un point (x2,y2)
+int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pixel) { // Dessine un trait d'un point (x1,y1) à un point (x2,y2)
     //    int x, y, dx, dy ;
     //    float e, e(1,0), e(0,1) ;  // valeur d’erreur et incréments
     //    dy ← y2 - y1 ;
@@ -127,9 +136,10 @@ void trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pi
     //                  fin si ;
     //          fin pour ;
 
+    return 1;
 }
 
-void rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel couleur) {
+int rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel couleur) {
     sortie = entree;
     for (int x = x1; x <= x2; x++) {
         for (int y = y1; y <= y2; y++) {
@@ -137,9 +147,10 @@ void rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixe
         }
     }
 
+    return 0;
 }
 
-void cercle(Image entree, Image &sortie, int x0, int y0, int r, Pixel couleur) {
+int cercle(Image entree, Image &sortie, int x0, int y0, int r, Pixel couleur) {
     // sortie=entree;
     // pour x=0 à x=image.g_dimensionX()
     //     pour y=0 à y=image.g_dimensionY()
@@ -148,9 +159,10 @@ void cercle(Image entree, Image &sortie, int x0, int y0, int r, Pixel couleur) {
     //         Fin si
     //     fin pour
     // fin pour
+    return 1;
 }
 
-void disque(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
+int disque(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
     // sortie=entree;
     // pour x=0 à x=image.g_dimensionX()
     //     pour y=0 à y=image.g_dimensionY()
@@ -159,14 +171,16 @@ void disque(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
     //         Fin si
     //     fin pour
     // fin pour
+    return 1;
 }
 
 // Geométrie
-void zoom(Image entree, Image &sortie) {
+int zoom(Image entree, Image &sortie) {
 
+    return 1;
 }
 
-void pivoter(Image entree, Image &sortie, int x0, int y0, float angle) {
+int pivoter(Image entree, Image &sortie, int x0, int y0, float angle) {
     sortie = entree.g_vide();
     float xF, yF, angleF, xI, yI, angleI, h;
     Pixel pixel = entree.g_pixelVide();
@@ -176,109 +190,97 @@ void pivoter(Image entree, Image &sortie, int x0, int y0, float angle) {
                 xI = x0;
                 yI = y0;
             } else {
-                angleF = atan((yF-y0)/(xF-x0));
-                angleF = (xF-x0<0 ? angleF + PI : (yF-y0 ? angleF + 2*PI: angleF));
+                angleF = atan((yF - y0) / (xF - x0));
+                angleF = (xF - x0 < 0 ? angleF + PI : angleF);
                 angleI = angleF - angle;
-                h = sqrt(pow(xF-x0, 2)+pow(yF-y0, 2));
-                xI = cos(angleI)*h+x0;
-                yI = sin(angleI)*h+y0;
+                h = sqrt(pow(xF - x0, 2) + pow(yF - y0, 2));
+                xI = cos(angleI) * h + x0;
+                yI = sin(angleI) * h + y0;
             }
             entree.g_pixel((int) xI, (int) yI, pixel);
             sortie.s_pixel((int) xF, (int) yF, pixel);
         }
     }
+    return 0;
 }
 
-void retourner(Image entree, Image &sortie, int rotation) {
+int retourner(Image entree, Image &sortie, int rotation) {
 
+    return 1;
 }
 
-void redimensionner(Image entree, Image &sortie, int x1, int x2, int y1, int y2) {
-    // Image *nouvelle = new Image(x2-x1, y2-y1, entree.g_maxComposante(), entree.g_typeComposantes());
-    // sortie = *nouvelle;
+int redimensionner(Image entree, Image &sortie, int x1, int x2, int y1, int y2) {
+    // sortie = *new Image(x2-x1, y2-y1, entree.g_maxComposante(), entree.g_typeComposantes());
     // pour x=x1 à x=x2
     //    pour y=y1 à y=y2
     //         sortie.s_pixel(x, y, entree.g_pixel(x+x1, y+y1));
     //     FinPour
     // FinPour
+    return 1;
 }
 
 // Modification couleur
-void convBIN(Image entree, Image &sortie) {
-    Pixel pixel;
-    switch(entrée.g_typeComposantes) {
-        case PILG_BIN:
-            sortie=entree;
-             break;
-        case PILG_NIV:
-            sortie = new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_BIN);
-            pixelI = entree.g_pixelVide();
-            pixelF = sortie.g_pixelVide();
-            for (int x = 0; x <= entree.g_dimensionX(); x++) {
-                for (int y = 0; y <= entree.g_dimensionY(); y++) {
-                    entree.g_pixel(x, y, pixelI);
-                    pixelF.n = (pixelI.g > entree.g_maxComposante/2);
-                    sortie.s_pixel(x, y, pixelF);
-                
+int convBIN(Image entree, Image &sortie) {
+    if (entree.g_typeComposantes() == PILG_BIN) {
+        sortie = entree;
+    } else {
+        sortie = *new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_BIN);
+        Pixel pixelI, pixelF;
+        pixelF = sortie.g_pixelVide();
+        for (int x = 0; x <= entree.g_dimensionX(); x++) {
+            for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                entree.g_pixel(x, y, pixelI);
+                switch (entree.g_typeComposantes()) {
+                case PILG_NIV:
+                    pixelF.n = (pixelI.g > entree.g_maxComposante() / 2);
+                    break;
+                case PILG_RVB:
+                    pixelF.n = ((pixelI.r + pixelI.v + pixelI.b) / 3 > entree.g_maxComposante() / 2);
+                    break;
+                default:
+                    return 2;
                 }
+                sortie.s_pixel(x, y, pixelF);
             }
-            break;
-        case PILG_RVB:
-            sortie = new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_BIN);
-            pixelI = entree.g_pixelVide();
-            pixelF = sortie.g_pixelVide();
-            for (int x = 0; x <= entree.g_dimensionX(); x++) {
-                for (int y = 0; y <= entree.g_dimensionY(); y++) {
-                    entree.g_pixel(x, y, pixelI);
-                    pixelF.n = ((pixelI.r + pixelI.v + pixelI.b)/3 > entree._maxComposante/2);
-                    sortie.s_pixel(x, y, pixelF);
-                
-                }
-            }
-            break;
-
+        }
     }
+    return 0;
 }
 
-void convNIV(Image entree, Image &sortie) {
-        Pixel pixel;
-    switch(entrée.g_typeComposantes) {
-        case PILG_BIN:
-            sortie = new Image(entree.n_dimensionX(), entree.n_dimensionY(), 0, PILG_BIN);
-            pixelI = entree.g_pixelVide();
-            pixelF = sortie.g_pixelVide();
-            for (int x = 0; x <= entree.g_dimensionX(); x++) {
-                for (int y = 0; y <= entree.g_dimensionY(); y++) {
-                    entree.g_pixel(x, y, pixelI);
+int convNIV(Image entree, Image &sortie) {
+    if (entree.g_typeComposantes() == PILG_NIV) {
+        sortie = entree;
+    } else {
+        sortie = *new Image(entree.g_dimensionX(), entree.g_dimensionY(), MAXCOMPOSANTEDEFAUT, PILG_NIV);
+        Pixel pixelI, pixelF;
+        pixelF = sortie.g_pixelVide();
+        for (int x = 0; x <= entree.g_dimensionX(); x++) {
+            for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                entree.g_pixel(x, y, pixelI);
+                switch (entree.g_typeComposantes()) {
+                case PILG_BIN:
                     pixelF.g = (pixelI.n ? sortie.g_maxComposante() : 0);
-                    sortie.s_pixel(x, y, pixelF);
-                
+                    break;
+                case PILG_RVB:
+                    pixelF.g = (pixelI.r + pixelI.v + pixelI.b) / 3.0 / entree.g_maxComposante() * sortie.g_maxComposante();
+                    break;
+                default:
+                    return 1;
                 }
+                sortie.s_pixel(x, y, pixelF);
             }
-             break;
-        case PILG_NIV:
-            sortie = entree;
-            break;
-        case PILG_RVB:
-            sortie = new Image(entree.g_dimensionX(), entree.g_dimensionY(), 0, PILG_NIV);
-            pixelI = entree.g_pixelVide();
-            pixelF = sortie.g_pixelVide();
-            for (int x = 0; x <= entree.g_dimensionX(); x++) {
-                for (int y = 0; y <= entree.g_dimensionY(); y++) {
-                    entree.g_pixel(x, y, pixelI);
-                    pixelF.n = (pixelI.r + pixelI.v + pixelI.b)/3;
-                    sortie.s_pixel(x, y, pixelF);
-                
-                }
-            }
-            break;
+        }
+    }
+    return 0;
 }
 
-void convRVB(Image entree, Image &sortie) {
+int convRVB(Image entree, Image &sortie) {
 
+    return 1;
 }
 
 //Help
-void aide() {
+int aide() {
     //Afficher le texte suivant :
+    return 1;
 }
