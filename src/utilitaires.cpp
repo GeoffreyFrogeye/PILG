@@ -1,3 +1,5 @@
+#include <math.h>
+
 #define NOMBREOR 1.61803398875
 
 void presentation() {
@@ -5,7 +7,8 @@ void presentation() {
          << "|  _ \\|_ _|| |    / ___|" << endl
          << "| |_) || | | |   | |  _ "  << endl
          << "|  __/ | | | |___| |_| |"  << endl
-         << "|_|   |___||_____|\\____|" << endl;
+         << "|_|   |___||_____|\\____|" << endl
+         << endl;
 }
 
 Image imageDefaut() {
@@ -79,4 +82,14 @@ int chaineVersFlottant(string chaine, float &flottant) {
         return 1;
     }
     return 0;
+}
+
+int caraVersEntier(char cara) {
+    // int entier = (int) (0 << 8) + cara;
+    // entier = entier > 0 ? entier : 256+entier;
+    int i, entier = 0;
+    for (i = 0; i < 8; i++) {
+        entier += ((cara >> i) & 0x01) ? pow(2, i) : 0;
+    }
+    return entier;
 }

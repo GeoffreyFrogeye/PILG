@@ -99,6 +99,13 @@ Image genererBruit(int dimX, int dimY) {
     return image;
 }
 
+int appliquer(Image &image, string nomFichier, string ID, bool ASCII) {
+    ouvrir(image, "tests/" + nomFichier);
+    sauver(image, "tests/" + ID, ASCII, nomFichier);
+    afficherImage(image);
+    attendreFenetre();
+}
+
 int main(int argc, char *args[]) {
 #if defined(WIN32) // Permet de refaire fonctionner cout et cerr sous Windows après démarrage de SDL
     freopen("CON", "w", stdout);
@@ -107,27 +114,29 @@ int main(int argc, char *args[]) {
 
     presentation();
 
-    #define DIMENSIONS 256
-    Image imageOriginale = genererRoue(DIMENSIONS*2, DIMENSIONS, 255);
-    // Image imageoriginale; // Tester si ça marche
+    #define DIMENSIONS 50
+    Image image1 = genererRoue(DIMENSIONS*2, DIMENSIONS, 255);
+    Image image2 = genererRoue(DIMENSIONS*2, DIMENSIONS, 255);
+    // Image image1; // Tester si ça marche
+    // afficherImage(image1);
+    // attendreFenetre();
 
     // // Roue
-    // Image image = imageOriginale.g_vide();
+    // Image image = image1.g_vide();
     // for (float i = 0; i < 2 * PI; i += 0.1) {
-    //     pivoter(imageOriginale, image, DIMENSIONS/2, DIMENSIONS/2, i);
+    //     pivoter(image1, image, DIMENSIONS/2, DIMENSIONS/2, i);
     //     afficherImage(image);
     // }
 
     // Ouvrir fichier
-    // cout << ouvrir(imageOriginale, "tests/PikachuP6.ppm") << endl;
+    appliquer(image1, "PikachuP1.pbm", "1", true);
+    appliquer(image1, "PikachuP2.pgm", "2", true);
+    appliquer(image1, "PikachuP3.ppm", "3", true);
+    appliquer(image1, "PikachuP4.pbm", "4", false);
+    appliquer(image1, "PikachuP5.pgm", "5", false);
+    appliquer(image1, "PikachuP6.ppm", "6", false);
     
-    afficherImage(imageOriginale);
-    attendreFenetre();
 
-    // pivoter(imageOriginale, imageOriginale, imageOriginale.g_dimensionX()/2, imageOriginale.g_dimensionY()/2, 0.5);
-    // attendreFenetre();
-
-    cout << sauver(imageOriginale, "tests/Sauvegardé.ppm", true, "Ceci est un commentaire") << endl;
 
     // // Neige en dégradé
     // for (int i; i < 300; i++) {

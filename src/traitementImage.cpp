@@ -1,19 +1,22 @@
-#include <math.h>
 #include <fstream>
 
 #define PI 3.14159265359
 #define MAXCOMPOSANTEDEFAUT 255
+#define FICHIER_SEPARATEUR (char) 0x0a
 
 typedef enum {PILG_TYPE, PILG_DIMENSIONS, PILG_MAXCOMPOSANTE, PILG_IMAGE} PILG_OuvrirEtape;
 
 // Gestion de fichiers
-int creer(Image &sortie, unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes) { // Créer une image de dimensions X et Y
+int creer(Image &sortie, int dimensionX, int dimensionY, int maxComposante, PILG_Comp typeComposantes) { // Créer une image de dimensions X et Y
     sortie = *new Image(dimensionX, dimensionY, maxComposante, typeComposantes);
     return 0;
 }
 
 int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à partir du nom du fichier ***Geoffrey
     // Ouverture du fichier
+#if DEBUG
+    cout << "→ " << nomFichier << endl;
+#endif
     ifstream streamFichier(nomFichier.c_str(), ios::in);
     if (streamFichier) {
         // Calcul de la taille (en octets) du fichier
@@ -22,13 +25,12 @@ int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à 
 
         // Stockage du fichier dans une chaîne
         streamFichier.seekg(0, ios::beg);
-        char *caracteres = new char [tailleFichier];
-        streamFichier.read(caracteres, tailleFichier);
-        string fichier_caracteres(caracteres);
-        delete[] caracteres;
+        char *fichier_caracteres = new char [tailleFichier];
+        streamFichier.read(fichier_caracteres, tailleFichier);
         streamFichier.close();
 
         // Variables d'informations
+        char cara;
         PILG_OuvrirEtape ouvrirEtape(PILG_TYPE);
         bool ASCII(false);
         int dimensionX;
@@ -40,12 +42,15 @@ int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à 
         string element("");
         int x(0);
         int y(0);
-        string pixelASCII;
-        int RVBcomposante(0); // Composante actuelle pour RVB
+        int i(0);
+        Pixel pixel;
+        string tmpASCII;
+        char RVBcomposante(0); // Composante actuelle pour RVB
 
         for (int c(0); c < tailleFichier; c++) {
+            cara = fichier_caracteres[c];
             if (ouvrirEtape != PILG_IMAGE) {
-                if (fichier_caracteres[c] ==  (char) 0x0a) { // En cas de nouvel élément
+                if (cara == FICHIER_SEPARATEUR) { // En cas de nouvel élément
                     if (element[0] != '#') { // Si c'est un commentaire, on passe à l'élément suivant
                         switch (ouvrirEtape) {
                         case PILG_TYPE:
@@ -100,9 +105,9 @@ int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à 
                                 if (element[j] == ' ') {
                                     espaceDepasse = true;
                                 } else if (espaceDepasse) {
-                                    dimensionXchaine += element[j];
-                                } else {
                                     dimensionYchaine += element[j];
+                                } else {
+                                    dimensionXchaine += element[j];
                                 }
                             }
                             chaineVersEntier(dimensionXchaine, dimensionX);
@@ -132,23 +137,100 @@ int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à 
                             return 4;
                             break;
                         }
-                        element = "";
                         if (ouvrirEtape == PILG_IMAGE) {
                             sortie = *new Image(dimensionX, dimensionY, maxComposante, typeComposantes);
+                            pixel = sortie.g_pixelVide();
                         }
                     }
+                    element = "";
                 } else {
-                    element += fichier_caracteres[c];
+                    element += cara;
                 }
             } else {
-                // ...
+                if (ASCII) {
+                    if (typeComposantes == PILG_BIN) {
+                        if (cara != FICHIER_SEPARATEUR) {
+                            pixel.n = (cara == 0x31) ? false : true;
+                            sortie.s_pixel(x, y, pixel);
+                            x++;
+                        }
+                    } else {
+                        if (cara == FICHIER_SEPARATEUR) {
+                            if (typeComposantes == PILG_RVB) {
+                                switch (RVBcomposante) {
+                                case 0:
+                                    chaineVersEntier(tmpASCII, pixel.r);
+                                    RVBcomposante = 1;
+                                    break;
+                                case 1:
+                                    chaineVersEntier(tmpASCII, pixel.v);
+                                    RVBcomposante = 2;
+                                    break;
+                                case 2:
+                                    chaineVersEntier(tmpASCII, pixel.b);
+                                    RVBcomposante = 0;
+                                    sortie.s_pixel(x, y, pixel);
+                                    x++;
+                                    break;
+                                }
+                            } else {
+                                chaineVersEntier(tmpASCII, pixel.g);
+                                sortie.s_pixel(x, y, pixel);
+                                x++;
+                            }
+                            tmpASCII = "";
+                        } else {
+                            tmpASCII += cara;
+                        }
+
+                    }
+                } else {
+                    if (typeComposantes == PILG_BIN) {
+                        for (i = 7; i >= 0; i--) {
+                            pixel.n = !((cara >> i) & 0x01);
+                            sortie.s_pixel(x, y, pixel);
+                            x++;
+                            if (x >= dimensionX) {
+                                y++;
+                                x = 0;
+                            }
+                        }
+                    } else {
+                        if (typeComposantes == PILG_RVB) {
+                            switch (RVBcomposante) {
+                            case 0:
+                                pixel.r = caraVersEntier(cara);
+                                RVBcomposante = 1;
+                                break;
+                            case 1:
+                                pixel.v = caraVersEntier(cara);
+                                RVBcomposante = 2;
+                                break;
+                            case 2:
+                                pixel.b = caraVersEntier(cara);
+                                RVBcomposante = 0;
+                                sortie.s_pixel(x, y, pixel);
+                                x++;
+                                break;
+                            }
+                        } else {
+                            pixel.g = caraVersEntier(cara);
+                            sortie.s_pixel(x, y, pixel);
+                            x++;
+                        }
+                    }
+                }
+                if (x >= dimensionX) {
+                    y++;
+                    x += -dimensionX;
+                }
             }
         }
     } else {
         return 1;
     }
 #if DEBUG
-    cout << endl << endl;
+    cout << endl;
 #endif
 
     return 0;
@@ -156,26 +238,75 @@ int ouvrir(Image &sortie, string nomFichier) { // Ouvrir une image existante à 
 
 int sauver(Image entree, string nomFichier, bool ASCII, string commentaire) { // Sauvegarder l'image obtenue dans un nouveau fichier
     ofstream fichier(nomFichier.c_str(), ios::out | ios::trunc);
-#define FICHIER_SEPARATEUR (char) 0x0a
-    if (entree.g_typeComposantes() == PILG_RVB && ASCII) {
-        fichier << "P6";
-    } else {
+    char numero;
+    switch (entree.g_typeComposantes()) {
+    case PILG_BIN:
+        numero = ASCII ? '1' : '4';
+        break;
+    case PILG_NIV:
+        numero = ASCII ? '2' : '5';
+        break;
+    case PILG_RVB:
+        numero = ASCII ? '3' : '6';
+        break;
+    default:
         return 1;
     }
-    fichier << FICHIER_SEPARATEUR;
-    // if (commentaire) {
-    //     fichier << "#" << commentaire << FICHIER_SEPARATEUR;
-    // }
+
+    fichier << "P" << numero << FICHIER_SEPARATEUR;
+    if (commentaire != "") {
+        fichier << "# " << commentaire << FICHIER_SEPARATEUR;
+    }
     fichier << entree.g_dimensionX() << " " << entree.g_dimensionY() << FICHIER_SEPARATEUR;
-    
+
     if (entree.g_typeComposantes() != PILG_BIN) {
         fichier << entree.g_maxComposante() << FICHIER_SEPARATEUR;;
     }
     Pixel pixel;
-    for (int x = 0; x <= entree.g_dimensionX(); x++) {
-        for (int y = 0; y <= entree.g_dimensionY(); y++) {
-            if (entree.g_typeComposantes() == PILG_RVB && ASCII) {
-                fichier << pixel.r << FICHIER_SEPARATEUR << pixel.v << FICHIER_SEPARATEUR << pixel.b << FICHIER_SEPARATEUR;
+    char brutBINpixel;
+    int brutBINpixelRang = 7;
+    for (int y = 0; y < entree.g_dimensionY(); y++) {
+        for (int x = 0; x < entree.g_dimensionX(); x++) {
+            entree.g_pixel(x, y, pixel);
+            switch (entree.g_typeComposantes()) {
+            case PILG_BIN:
+                if (ASCII) {
+                    if (pixel.n) {
+                        fichier << '0';
+                    } else {
+                        fichier << '1';
+                    }
+                } else {
+                    if (pixel.n) {
+                        brutBINpixel &= ~(1 << brutBINpixelRang);
+                    } else {
+                        brutBINpixel |= 1 << brutBINpixelRang;
+                    }
+                    brutBINpixelRang--;
+                    if (brutBINpixelRang < 0) {
+                        fichier << brutBINpixel;
+                        brutBINpixelRang = 7;
+                    }
+                }
+                break;
+            case PILG_NIV:
+                if (ASCII) {
+                    fichier << pixel.g << FICHIER_SEPARATEUR;
+                } else {
+                    fichier << (char) pixel.g;
+                }
+                break;
+            case PILG_RVB:
+                if (ASCII) {
+                    fichier << pixel.r << FICHIER_SEPARATEUR << pixel.v << FICHIER_SEPARATEUR << pixel.b << FICHIER_SEPARATEUR;
+                } else {
+                    fichier << (char) pixel.r
+                            << (char) pixel.v
+                            << (char) pixel.b;
+                }
+                break;
+            default:
+                return 1;
             }
         }
     }

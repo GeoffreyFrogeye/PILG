@@ -1,6 +1,6 @@
 #include "image.h"
 
-Image::Image(unsigned int dimensionX, unsigned int dimensionY, unsigned int maxComposante, PILG_Comp typeComposantes): m_dimensionX(dimensionX), m_dimensionY(dimensionY), m_maxComposante(maxComposante), m_typeComposantes(typeComposantes) {
+Image::Image(int dimensionX, int dimensionY, int maxComposante, PILG_Comp typeComposantes): m_dimensionX(dimensionX), m_dimensionY(dimensionY), m_maxComposante(maxComposante), m_typeComposantes(typeComposantes) {
     Pixel pixelVide = g_pixelVide();
     for (int xT = 0; xT < dimensionX; xT++) {
         std::vector< Pixel > colonne;
@@ -12,11 +12,11 @@ Image::Image(unsigned int dimensionX, unsigned int dimensionY, unsigned int maxC
 }
 
 // Getters
-unsigned int Image::g_dimensionX() const {
+int Image::g_dimensionX() const {
     return m_dimensionX;
 }
 
-unsigned int Image::g_dimensionY() const {
+int Image::g_dimensionY() const {
     return m_dimensionY;
 }
 
@@ -24,11 +24,11 @@ PILG_Comp Image::g_typeComposantes() const {
     return m_typeComposantes;
 }
 
-unsigned int Image::g_maxComposante() const {
+int Image::g_maxComposante() const {
     return m_maxComposante;
 }
 
-int Image::g_pixel(unsigned int x, unsigned int y, Pixel &pixel) const {
+int Image::g_pixel(int x, int y, Pixel &pixel) const {
     if (v_dimensions(x, y)) {
         pixel = m_tab[x][y];
         return 0;
@@ -39,7 +39,7 @@ int Image::g_pixel(unsigned int x, unsigned int y, Pixel &pixel) const {
 }
 
 // Setters
-int Image::s_pixel(unsigned int x, unsigned int y, Pixel pixel) {
+int Image::s_pixel(int x, int y, Pixel pixel) {
     if (v_dimensions(x, y) && v_pixel(pixel)) {
         m_tab[x][y] = pixel;
         return 0;
@@ -96,6 +96,6 @@ bool Image::v_pixel(Pixel pixel) const {
     }
 }
 
-bool Image::v_dimensions(unsigned int x, unsigned int y) const {
+bool Image::v_dimensions(int x, int y) const {
     return (x >= 0 && x < m_dimensionX && y >= 0 && y < m_dimensionY);
 }

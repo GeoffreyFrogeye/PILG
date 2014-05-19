@@ -23,10 +23,10 @@ $(EXEPATH)testing: $(OBJPATH)testing.o $(OBJPATH)image.o
 
 # Dépendances
 ## Fichiers executables
-$(OBJPATH)main.o: $(SRCPATH)main.cpp $(SRCPATH)affichageFenetre.cpp $(SRCPATH)image.cpp $(SRCPATH)traitementImage.cpp $(SRCPATH)analyserCommande.cpp
+$(OBJPATH)main.o: $(SRCPATH)main.cpp $(SRCPATH)affichageFenetre.cpp $(SRCPATH)image.cpp $(SRCPATH)utilitaires.cpp $(SRCPATH)traitementImage.cpp $(SRCPATH)analyserCommande.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-$(OBJPATH)testing.o: $(SRCPATH)testing.cpp $(SRCPATH)affichageFenetre.cpp $(SRCPATH)image.cpp $(SRCPATH)traitementImage.cpp $(SRCPATH)analyserCommande.cpp
+$(OBJPATH)testing.o: $(SRCPATH)testing.cpp $(SRCPATH)affichageFenetre.cpp $(SRCPATH)image.cpp $(SRCPATH)utilitaires.cpp $(SRCPATH)traitementImage.cpp $(SRCPATH)analyserCommande.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGSDEBUG)
 ## Bibliothèques
 $(OBJPATH)image.o: $(SRCPATH)image.cpp
