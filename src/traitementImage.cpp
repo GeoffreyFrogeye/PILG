@@ -33,43 +33,40 @@ int importer(Image entree, Image &sortie, string nomFichier, int x, int y) {
 }
 
 // Couleur
+
+int rvbVersTsl(Pixel entree, Pixel &sortie) {
+    TSLcouleur tslcouleur;
+    float r = (float) entree.r/entree.maxComposante;
+    float v = (float) entree.v/entree.maxComposante;
+    float b = (float) entree.b/entree.maxComposante;
+    
+    float min = (r < v < b ? || (v < r && v < b ? b b || v));
+    float max = (r > v > b ? || (v > r && v > b ? b b || v));
+    float s, h, l;
+    if max == min
+        s = 0
+        h = Number.NaN
+    else
+        s = if l < 0.5 then (max - min) / (max + min) else (max - min) / (2 - max - min)
+
+    if r == max then h = (g - b) / (max - min)
+    else if (g == max) then h = 2 + (b - r) / (max - min)
+    else if (b == max) then h = 4 + (r - g) / (max - min)
+
+    h *= 60;
+    h += 360 if h < 0
+    [h,s,l]
+}
+
 int teinte(Image entree, Image &sortie, float teinte) { // Change la teinte de l'image
-    // Si la teinte appartient à [0;1[
-    //     r1 = 0
-    //     r2 = 1
-    //     v1 = 1
-    //     v2 = 2
-    //     b1 = 2
-    //     b2 = 0
-    //     Valeur = Teinte
-    // Sinon Si la teinte appartient à [1;2[
-    //     r1 = 1
-    //     r2 = 2
-    //     v1 = 2
-    //     v2 = 0
-    //     b1 = 0
-    //     b2 = 1
-    //     Valeur = Teinte-1
-    // Sinon Si la teinte appartient à [2;3]
-    //     r1 = 2
-    //     r2 = 0
-    //     v1 = 0
-    //     v2 = 1
-    //     b1 = 1
-    //     b2 = 2
-    //     Valeur = Teinte-2
-    // Fin Si
-    // Pour x=0 à x=image.getDimensionX()
-    //     Pour y=0 à y=image.getDimensionY()
-    //
-    //
-    //
-    //         pixel.r = r1+(r2-r1)*valeur
-    //         pixel.v = v1+(v2-v1)*valeur
-    //         pixel.b = b1+(b2-b1)*valeur
-    //     Fin Pour
-    // Fin Pour
-    return 1;
+    for (int x=0, x = image.g_DimensionX(), x++) {
+        for (int y=0, y = image.g_DimensionY(), y++) {
+            rvbVersTsl();
+            g_pixel(x, y);
+        
+        }
+    }
+return 1;
 }
 
 int saturation(Image entree, Image &sortie, float saturation) { // Sature l'image
@@ -119,22 +116,22 @@ int contraste(Image entree, Image &sortie, float contraste) { // Accentue les co
 }
 
 // Dessin
-int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel pixel) { // Dessine un trait d'un point (x1,y1) à un point (x2,y2)
-    //    int x, y, dx, dy ;
-    //    float e, e(1,0), e(0,1) ;  // valeur d’erreur et incréments
-    //    dy ← y2 - y1 ;
-    //    dx ← x2 - x1 ;
-    //    y ← y1 ;  // rangée initiale
-    //    e ← 0,0 ;  // valeur d’erreur initiale
-    //    e(1,0) ← dy / dx ;
-    //    e(0,1) ← -1.0 ;
-    //          pour x variant de x1 jusqu’à x2 par incrément de 1 faire
-    //              tracerPixel(x, y) ;
-    //                  si (e ←  e + e(1,0)) ≥ 0,5 alors  // erreur pour le pixel suivant de même rangée
-    //                      y ←  y + 1 ;  // choisir plutôt le pixel suivant dans la rangée supérieure
-    //                      e ←  e + e(0,1) ;  // ajuste l’erreur commise dans cette nouvelle rangée
-    //                  fin si ;
-    //          fin pour ;
+int trait(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel couleur) { // Dessine un trait d'un point (x1,y1) à un point (x2,y2)
+        int x, y, dx, dy;
+        float e, e(1,0), e(0,1) ;  // valeur d’erreur et incréments
+        dy = y2 - y1 ;
+        dx = x2 - x1 ;
+        y = y1 ;  // rangée initiale
+        e = 0,0 ;  // valeur d’erreur initiale
+        e(1,0) = dy / dx ;
+        e(0,1) = -1.0 ;
+              for (x = x1, x = x2, x++) {
+                  sortie.s_pixel(x, y, couleur);
+                      if ((e =  e + e(1,0)) >= 0,5) {  // erreur pour le pixel suivant de même rangée
+                          y =  y + 1 ;  // choisir plutôt le pixel suivant dans la rangée supérieure
+                          e =  e + e(0,1) ;  // ajuste l’erreur commise dans cette nouvelle rangée
+                      }
+              }
 
     return 1;
 }
@@ -151,26 +148,27 @@ int rectangle(Image entree, Image &sortie, int x1, int y1, int x2, int y2, Pixel
 }
 
 int cercle(Image entree, Image &sortie, int x0, int y0, int r, Pixel couleur) {
-    // sortie=entree;
-    // pour x=0 à x=image.g_dimensionX()
-    //     pour y=0 à y=image.g_dimensionY()
-    //         si sqrt(pow(x-x0, 2) + pow(y-y0, 2)) == r
-    //             sortie.s_pixel(x, y, couleur);
-    //         Fin si
-    //     fin pour
-    // fin pour
+    sortie=entree;
+    for (int x=0, x=image.g_dimensionX(), x++) {
+        for (int y=0, y=image.g_dimensionY(), y++) {
+            if (sqrt(pow(x-x0, 2) + pow(y-y0, 2)) == r) {
+                sortie.s_pixel(x, y, couleur);
+            }
+        }
+    }
     return 1;
 }
 
 int disque(Image entree, Image &sortie, int x, int y, int r, Pixel couleur) {
-    // sortie=entree;
-    // pour x=0 à x=image.g_dimensionX()
-    //     pour y=0 à y=image.g_dimensionY()
-    //         si sqrt(pow(x-x0, 2) + pow(y-y0, 2)) <= r
-    //             sortie.s_pixel(x, y, couleur);
-    //         Fin si
-    //     fin pour
-    // fin pour
+    
+    sortie=entree;
+    for (int x=0, x=image.g_dimensionX(), x++) {
+        for (int y=0, y=image.g_dimensionY(), y++) {
+            if (sqrt(pow(x-x0, 2) + pow(y-y0, 2)) <= r) {
+                sortie.s_pixel(x, y, couleur);
+            }
+        }
+    }
     return 1;
 }
 
@@ -210,12 +208,15 @@ int retourner(Image entree, Image &sortie, int rotation) {
 }
 
 int redimensionner(Image entree, Image &sortie, int x1, int x2, int y1, int y2) {
-    // sortie = *new Image(x2-x1, y2-y1, entree.g_maxComposante(), entree.g_typeComposantes());
-    // pour x=x1 à x=x2
-    //    pour y=y1 à y=y2
-    //         sortie.s_pixel(x, y, entree.g_pixel(x+x1, y+y1));
-    //     FinPour
-    // FinPour
+
+    sortie = *new Image(x2-x1, y2-y1, entree.g_maxComposante(), entree.g_typeComposantes());
+    Pixel pixel = entree.g_pixelVide();
+    for (int x = x1, x <= x2, x++) {
+        for (int y = y1, y <= y2, y++) {
+            entree.g_pixel(x+x1, y+y1, pixel);
+            sortie.s_pixel(x, y, pixel);
+        }
+    }
     return 1;
 }
 
@@ -275,8 +276,31 @@ int convNIV(Image entree, Image &sortie) {
 }
 
 int convRVB(Image entree, Image &sortie) {
-
-    return 1;
+    if (entree.g_typeComposantes() == PILG_RVB) {
+        sortie = entree;
+    } else {
+        sortie = *new Image(entree.g_dimensionX(), entree.g_dimensionY(), MAXCOMPOSANTEDEFAUT, PILG_RVB);
+        Pixel pixelI, pixelF;
+        pixelF = sortie.g_pixelVide();
+        for (int x = 0; x <= entree.g_dimensionX(); x++) {
+            for (int y = 0; y <= entree.g_dimensionY(); y++) {
+                entree.g_pixel(x, y, pixelI);
+                switch (entree.g_typeComposantes()) {
+                case PILG_BIN:
+                    pixelF.g = (pixelI.n ? sortie.g_maxComposante() : 0);
+                    break;
+                case PILG_RVB:
+                    pixelF.g = (pixelI.r + pixelI.v + pixelI.b) / 3.0 / entree.g_maxComposante() * sortie.g_maxComposante();
+                    break;
+                default:
+                    return 1;
+                }
+                sortie.s_pixel(x, y, pixelF);
+            }
+        }
+    }
+    return 0;
+    return 0;
 }
 
 //Help
