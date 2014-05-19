@@ -276,31 +276,7 @@ int convNIV(Image entree, Image &sortie) {
 }
 
 int convRVB(Image entree, Image &sortie) {
-    if (entree.g_typeComposantes() == PILG_RVB) {
-        sortie = entree;
-    } else {
-        sortie = *new Image(entree.g_dimensionX(), entree.g_dimensionY(), MAXCOMPOSANTEDEFAUT, PILG_RVB);
-        Pixel pixelI, pixelF;
-        pixelF = sortie.g_pixelVide();
-        for (int x = 0; x <= entree.g_dimensionX(); x++) {
-            for (int y = 0; y <= entree.g_dimensionY(); y++) {
-                entree.g_pixel(x, y, pixelI);
-                switch (entree.g_typeComposantes()) {
-                case PILG_BIN:
-                    pixelF.g = (pixelI.n ? sortie.g_maxComposante() : 0);
-                    break;
-                case PILG_RVB:
-                    pixelF.g = (pixelI.r + pixelI.v + pixelI.b) / 3.0 / entree.g_maxComposante() * sortie.g_maxComposante();
-                    break;
-                default:
-                    return 1;
-                }
-                sortie.s_pixel(x, y, pixelF);
-            }
-        }
-    }
-    return 0;
-    return 0;
+    return 1;
 }
 
 //Help
