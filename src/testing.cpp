@@ -5,6 +5,7 @@ using namespace std;
 
 #include "affichageFenetre.cpp"
 #include "image.h"
+#include "utilitaires.cpp"
 #include "traitementImage.cpp"
 #include "analyserCommande.cpp"
 
@@ -104,19 +105,29 @@ int main(int argc, char *args[]) {
     freopen("CON", "w", stderr);
 #endif
 
-    cout << "PILG - Test" << endl;  // Message d'entrée et de test
-
-    // Image image = genererRoue(256, 128, 255);
+    presentation();
 
     #define DIMENSIONS 256
+    Image imageOriginale = genererRoue(DIMENSIONS*2, DIMENSIONS, 255);
+    // Image imageoriginale; // Tester si ça marche
 
-    Image imageOriginale = genererRoue(DIMENSIONS, DIMENSIONS, 255);
-    Image image = imageOriginale.g_vide();
-    for (float i = 0; i < 2 * PI; i += 0.1) {
-        pivoter(imageOriginale, image, DIMENSIONS/2, DIMENSIONS/2, i);
-        afficherImage(image);
-    }
+    // // Roue
+    // Image image = imageOriginale.g_vide();
+    // for (float i = 0; i < 2 * PI; i += 0.1) {
+    //     pivoter(imageOriginale, image, DIMENSIONS/2, DIMENSIONS/2, i);
+    //     afficherImage(image);
+    // }
 
+    // Ouvrir fichier
+    // cout << ouvrir(imageOriginale, "tests/PikachuP6.ppm") << endl;
+    
+    afficherImage(imageOriginale);
+    attendreFenetre();
+
+    // pivoter(imageOriginale, imageOriginale, imageOriginale.g_dimensionX()/2, imageOriginale.g_dimensionY()/2, 0.5);
+    // attendreFenetre();
+
+    cout << sauver(imageOriginale, "tests/Sauvegardé.ppm", true, "Ceci est un commentaire") << endl;
 
     // // Neige en dégradé
     // for (int i; i < 300; i++) {
@@ -157,6 +168,7 @@ int main(int argc, char *args[]) {
     // }
 
     // cout << "Éxecution du programme terminée. Vous pouvez quitter la fenêtre." << endl;
+    
     fermerFenetre();
 
     return 0;

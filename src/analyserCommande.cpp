@@ -2,22 +2,6 @@
 #include <string>
 #include <iostream>
 
-int chaineVersEntier(string chaine, int &entier) {
-    entier = atoi(chaine.c_str());
-    if (entier == 0 && chaine != "0") {
-        return 1;
-    }
-    return 0;
-}
-
-int chaineVersFlottant(string chaine, float &flottant) {
-    flottant = atof(chaine.c_str());
-    if (flottant == 0 && chaine != "0") {
-        return 1;
-    }
-    return 0;
-}
-
 void afficherImage(Image image) {
     int x, y, r, v, b, dimensionX = image.g_dimensionX(), dimensionY = image.g_dimensionY(), typeComposantes = image.g_typeComposantes();
 
