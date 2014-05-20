@@ -165,7 +165,7 @@ int main(int argc, char *args[]) {
     appliquer(image1, "PikachuP3.ppm", true);
     appliquer(image1, "PikachuP4.pbm", false);
     appliquer(image1, "PikachuP5.pgm", false);
-    appliquer(image1, "PikachuP6.pgm", false);
+    appliquer(image1, "PikachuP6.ppm", false);
     // // Neige en dégradé
     // for (int i; i < 300; i++) {
     //     afficherImage(genererBruit(200, 200));
@@ -203,5 +203,6 @@ int main(int argc, char *args[]) {
     // }
     // cout << "Éxecution du programme terminée. Vous pouvez quitter la fenêtre." << endl;
     fermerFenetre();
+    journal.close();
     return 0;
 }

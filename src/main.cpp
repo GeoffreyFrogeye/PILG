@@ -8,8 +8,6 @@ using namespace std;
 #include "traitementImage.cpp"
 #include "analyserCommande.cpp"
 
-#define NOMBREOR 1.61803398875
-
 int main(int argc, char *args[]) {
     #if defined(WIN32)  // Permet de refaire fonctionner cout et cerr sous Windows après démarrage de SDL
     freopen("CON", "w", stdout);
@@ -18,6 +16,7 @@ int main(int argc, char *args[]) {
     presentation();
     cout << endl;
     Image image = imageDefaut();
+    int code;
     
     if (argc > 1) { // Si la commande a été entrée avec des arguments
         vector< string > decoupe;
@@ -26,11 +25,13 @@ int main(int argc, char *args[]) {
             decoupe.push_back(args[i]);
         }
         
-        procederCommande(decoupe, image);
+        code = procederCommande(decoupe, image);
     } else {
         afficherImage(image);
         boucleDeCommandes(image);
+        code = 0;
     }
     
-    return 0;
+    journal.close();
+    return code;
 }

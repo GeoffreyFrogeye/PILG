@@ -247,6 +247,7 @@ int ouvrir(Image &sortie,
             }
         }
     } else {
+        journal << "Impossible d'ouvrir le fichier" << endl;
         return 1;
     }
     

@@ -6,11 +6,11 @@
 ofstream journal("PILG-log.txt", ios::out | ios::trunc);
 
 void presentation() {
-    cout << " ____  ___  _      ____ "  << endl
-         << "|  _ \\|_ _|| |    / ___|" << endl
-         << "| |_) || | | |   | |  _ "  << endl
-         << "|  __/ | | | |___| |_| |"  << endl
-         << "|_|   |___||_____|\\____|" << endl;
+    cout << " ____   ___   _       ____ "  << endl
+         << "|  _ \\ |_ _ || |     / ___|" << endl
+         << "| |_) | | |  | |    | |  _ "  << endl
+         << "|  __/  | |  | |___ | |_| |"  << endl
+         << "|_|    |___| |_____| \\____|" << endl;
 }
 
 Image imageDefaut() {

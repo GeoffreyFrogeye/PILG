@@ -4,7 +4,6 @@
 
 void decoupeCommande(string commande, vector< string > &decoupe) {
     // Boucle de découpage
-    // vector< string > decoupe;
     string elementCourrant = "";
     bool dansLeVide = false;
     bool echape = false;
@@ -22,9 +21,7 @@ void decoupeCommande(string commande, vector< string > &decoupe) {
         
         if (commande[i] == ' ' && !(echape || entreSimplesGuillemets ||
                                     entreDoublesGuillemets)) {
-            // cout << i << " : " << "espace" << endl;
             if (!dansLeVide) {
-                // cout << "Ajout de " << elementCourrant << endl;
                 decoupe.push_back(elementCourrant);
                 elementCourrant = "";
                 dansLeVide = true;
@@ -34,7 +31,6 @@ void decoupeCommande(string commande, vector< string > &decoupe) {
         } else if (commande[i] == '\'' && !(echape || entreDoublesGuillemets)) {
             if (entreSimplesGuillemets) {
                 entreSimplesGuillemets = false;
-                // cout << "Ajout de " << elementCourrant << endl;
                 decoupe.push_back(elementCourrant);
                 elementCourrant = "";
                 dansLeVide = true;
@@ -44,7 +40,6 @@ void decoupeCommande(string commande, vector< string > &decoupe) {
         } else if (commande[i] == '"' && !(echape || entreSimplesGuillemets)) {
             if (entreDoublesGuillemets) {
                 entreDoublesGuillemets = false;
-                // cout << "Ajout de " << elementCourrant << endl;
                 decoupe.push_back(elementCourrant);
                 elementCourrant = "";
                 dansLeVide = true;
@@ -52,14 +47,12 @@ void decoupeCommande(string commande, vector< string > &decoupe) {
                 entreDoublesGuillemets = true;
             }
         } else {
-            // cout << i << " : " << "else" << endl;
             elementCourrant += commande[i];
             dansLeVide = false;
         }
     }
     
     if (!dansLeVide) {
-        // cout << "Ajout de " << elementCourrant << endl;
         decoupe.push_back(elementCourrant);
     }
 }
@@ -68,10 +61,12 @@ typedef struct Commande {
     string fonction;
     
     int x1, x2, y1, y2;
-    float angle;
-    string fichierEntree, fichierSortie;
+    float v1;
+    bool b1;
+    string t1;
+    string fichier, entree, sortie;
     Pixel couleur;
-    // ...
+    PILG_Comp composante;
     
     vector< string > argumentsPresents;
 } Commande;
@@ -87,7 +82,7 @@ int analyserDecoupe(Commande &commande, vector< string > decoupe,
     // // Analyse des arguments
     for (int i = 1; i < decoupe.size(); i++) {
         if (decoupe[i].at(0) == '-') {
-            if (decoupe[i] == "-x1" || decoupe[i] == "-x0" || decoupe[i] == "-x") {
+            /*  */ if (decoupe[i] == "-x1" || decoupe[i] == "-x0" || decoupe[i] == "-x") {
                 commande.argumentsPresents.push_back("x1");
                 i++;
                 
@@ -101,21 +96,68 @@ int analyserDecoupe(Commande &commande, vector< string > decoupe,
                 if (chaineVersEntier(decoupe[i], commande.y1)) {
                     return 3;
                 }
-            } else if (decoupe[i] == "-x2") {
+            } else if (decoupe[i] == "-x2" || decoupe[i] == "-X") {
                 commande.argumentsPresents.push_back("x2");
                 i++;
                 
                 if (chaineVersEntier(decoupe[i], commande.x2)) {
                     return 3;
                 }
-            } else if (decoupe[i] == "-y2") {
+            } else if (decoupe[i] == "-y2" || decoupe[i] == "-Y") {
                 commande.argumentsPresents.push_back("y2");
                 i++;
                 
                 if (chaineVersEntier(decoupe[i], commande.y2)) {
                     return 3;
                 }
-            } else if (decoupe[i] == "-couleur" || decoupe[i] == "-c") {
+            } else if (decoupe[i] == "-v1" || decoupe[i] == "-v") {
+                commande.argumentsPresents.push_back("v1");
+                i++;
+                
+                if (chaineVersFlottant(decoupe[i], commande.v1)) {
+                    return 3;
+                }
+            } else if (decoupe[i] == "-b1" || decoupe[i] == "-b") {
+                commande.argumentsPresents.push_back("b1");
+                i++;
+                
+                if (decoupe[i] == "1" || decoupe[i] == "vrai" || decoupe[i] == "oui") {
+                    commande.b1 = true;
+                } else if (decoupe[i] == "0" || decoupe[i] == "faux" || decoupe[i] == "non") {
+                    commande.b1 = false;
+                } else {
+                    return 8;
+                }
+            } else if (decoupe[i] == "-t1" || decoupe[i] == "-t") {
+                commande.argumentsPresents.push_back("t1");
+                i++;
+                commande.t1 = decoupe[i];
+            } else if (decoupe[i] == "-f1" || decoupe[i] == "-f") {
+                commande.argumentsPresents.push_back("fichier");
+                i++;
+                commande.fichier = decoupe[i];
+            } else if (decoupe[i] == "-e") {
+                commande.argumentsPresents.push_back("entree");
+                i++;
+                commande.entree = decoupe[i];
+            } else if (decoupe[i] == "-s") {
+                commande.argumentsPresents.push_back("sortie");
+                i++;
+                commande.sortie = decoupe[i];
+            } else if (decoupe[i] == "-p") {
+                commande.argumentsPresents.push_back("composante");
+                i++;
+                
+                /*  */ if (decoupe[i] == "0" || decoupe[i] == "BIN") {
+                    commande.composante = PILG_BIN;
+                } else if (decoupe[i] == "1" || decoupe[i] == "NIV") {
+                    commande.composante = PILG_NIV;
+                } else if (decoupe[i] == "2" || decoupe[i] == "RVB") {
+                    commande.composante = PILG_RVB;
+                } else {
+                    return 10;
+                }
+            } else if (decoupe[i] == "-c") {
                 commande.argumentsPresents.push_back("couleur");
                 i++;
                 commande.couleur = image.g_pixelVide();
@@ -196,13 +238,6 @@ int analyserDecoupe(Commande &commande, vector< string > decoupe,
                 if (!image.v_pixel(commande.couleur)) {
                     return 7;
                 }
-            } else if (decoupe[i] == "-angle" || decoupe[i] == "-a") {
-                commande.argumentsPresents.push_back("angle");
-                i++;
-                
-                if (chaineVersFlottant(decoupe[i], commande.angle)) {
-                    return 8;
-                }
             } else {
                 cout << decoupe[i] << endl;
                 return 2;
@@ -212,14 +247,7 @@ int analyserDecoupe(Commande &commande, vector< string > decoupe,
         }
     }
     
-    #if DEBUG
-    
-    for (int i = 0; i < commande.argumentsPresents.size(); i++) {
-        journal << "\"" << commande.argumentsPresents[i] << "\" ";
-    }
-    
     journal << endl;
-    #endif
     return 0;
 }
 
@@ -234,7 +262,104 @@ bool argumentPresent(Commande commande, string argumentVoulu) {
 }
 
 int executerCommande(Commande commande, Image &image) {
-    if (commande.fonction == "rectangle") {
+    if (argumentPresent(commande, "entree")) {
+        if (ouvrir(image, commande.entree)) {
+            return 4;
+        }
+    }
+    
+    /*  */ if (commande.fonction == "creer") {
+        if (argumentPresent(commande, "x1") && argumentPresent(commande, "y1")
+                && argumentPresent(commande, "v1") && argumentPresent(commande, "composante")) {
+            if (creer(image, commande.x1, commande.y1, commande.v1, commande.composante)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+    } else if (commande.fonction == "ouvrir") {
+        if (argumentPresent(commande, "fichier")) {
+            if (ouvrir(image, commande.fichier)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+    } else if (commande.fonction == "sauver") {
+        if (argumentPresent(commande, "fichier")) {
+            if (!argumentPresent(commande, "b1")) {
+                commande.b1 = false;
+            }
+            
+            if (!argumentPresent(commande, "t1")) {
+                commande.t1 = "Fichier généré par PILG";
+            }
+            
+            if (sauver(image, commande.fichier, commande.b1, commande.t1)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+        
+        // } else if (commande.fonction == "importer") {
+        //     if (argumentPresent(commande, "fichier")) {
+        //         if (!argumentPresent(commande, "x1")) {
+        //             commande.x1 = 0;
+        //         }
+        //         if (!argumentPresent(commande, "y1")) {
+        //             commande.y1 = 0;
+        //         }
+        //         if (importer(image, image, commande.fichier,)) {
+        //             return 3;
+        //         }
+        //     } else {
+        //         return 2;
+        //     }
+        // } else if (commande.fonction == "teinte") {
+        //     if (argumentPresent(commande, "v1")) {
+        //         if (teinte(image, image, commande.v1)) {
+        //             return 3;
+        //         }
+        //     } else {
+        //         return 2;
+        //     }
+        // } else if (commande.fonction == "saturation") {
+        //     if (argumentPresent(commande, "v1")) {
+        //         if (saturation(image, image, commande.v1)) {
+        //             return 3;
+        //         }
+        //     } else {
+        //         return 2;
+        //     }
+        // } else if (commande.fonction == "luminosite") {
+        //     if (argumentPresent(commande, "v1")) {
+        //         if (luminosite(image, image, commande.v1)) {
+        //             return 3;
+        //         }
+        //     } else {
+        //         return 2;
+        //     }
+        // } else if (commande.fonction == "contraste") {
+        //     if (argumentPresent(commande, "v1")) {
+        //         if (contraste(image, image, commande.v1)) {
+        //             return 3;
+        //         }
+        //     } else {
+        //         return 2;
+        //     }
+    } else if (commande.fonction == "trait") {
+        if (argumentPresent(commande, "x1") && argumentPresent(commande, "x2")
+                && argumentPresent(commande, "y1") && argumentPresent(commande, "y2")
+                && argumentPresent(commande, "couleur")) {
+            if (trait(image, image, commande.x1, commande.y1, commande.x2, commande.y2,
+                      commande.couleur)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+    } else if (commande.fonction == "rectangle") {
         if (argumentPresent(commande, "x1") && argumentPresent(commande, "x2")
                 && argumentPresent(commande, "y1") && argumentPresent(commande, "y2")
                 && argumentPresent(commande, "couleur")) {
@@ -245,10 +370,48 @@ int executerCommande(Commande commande, Image &image) {
         } else {
             return 2;
         }
+    } else if (commande.fonction == "cercle") {
+        if (argumentPresent(commande, "x1") && argumentPresent(commande, "y1")
+                && argumentPresent(commande, "v1") && argumentPresent(commande, "couleur")) {
+            if (cercle(image, image, commande.x1, commande.y1, commande.v1,
+                       commande.couleur)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+    } else if (commande.fonction == "disque") {
+        if (argumentPresent(commande, "x1") && argumentPresent(commande, "y1")
+                && argumentPresent(commande, "v1") && argumentPresent(commande, "couleur")) {
+            if (disque(image, image, commande.x1, commande.y1, commande.v1,
+                       commande.couleur)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
     } else if (commande.fonction == "pivoter") {
         if (argumentPresent(commande, "x1") && argumentPresent(commande, "y1")
-                && argumentPresent(commande, "angle")) {
-            if (pivoter(image, image, commande.x1, commande.y1, commande.angle)) {
+                && argumentPresent(commande, "v1")) {
+            if (pivoter(image, image, commande.x1, commande.y1, commande.v1)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+    } else if (commande.fonction == "retourner") {
+        if (argumentPresent(commande, "v1")) {
+            if (retourner(image, image, commande.v1)) {
+                return 3;
+            }
+        } else {
+            return 2;
+        }
+    } else if (commande.fonction == "redimensionner") {
+        if (argumentPresent(commande, "x1") && argumentPresent(commande, "x2")
+                && argumentPresent(commande, "y1") && argumentPresent(commande, "y2")) {
+            if (redimensionner(image, image, commande.x1, commande.y1, commande.x2,
+                               commande.y2)) {
                 return 3;
             }
         } else {
@@ -262,23 +425,41 @@ int executerCommande(Commande commande, Image &image) {
         if (convNIV(image, image)) {
             return 3;
         }
-        
-        // } else if (commande.fonction == "convRVB") {
-        // convRVB(image, image);
+    } else if (commande.fonction == "convRVB") {
+        if (convRVB(image, image)) {
+            return 3;
+        }
     } else {
         return 1;
+    }
+    
+    if (argumentPresent(commande, "sortie")) {
+        if (sauver(image, commande.sortie, false, "Fichier généré par PILG")) {
+            return 4;
+        }
     }
     
     return 0;
 }
 
-void procederCommande(vector< string > decoupe, Image &image) {
-    Commande commande;
+int procederCommande(vector< string > decoupe, Image &image) {
+    journal << "Commande : ";
     
-    switch (analyserDecoupe(commande, decoupe, image)) {
+    for (int i = 0; i < decoupe.size(); i++) {
+        journal << "«" << decoupe[i] << "» ";
+    }
+    
+    Commande commande;
+    int code;
+    code = analyserDecoupe(commande, decoupe, image);
+    
+    switch (code) {
     case 0:
-        switch (executerCommande(commande, image)) {
+        code = executerCommande(commande, image);
+        
+        switch (code) {
         case 0:
+            journal << "Succès" << endl;
             break;
             
         case 1:
@@ -293,11 +474,15 @@ void procederCommande(vector< string > decoupe, Image &image) {
             messageErreur("Erreur dans l'execution de la commande");
             break;
             
+        case 4:
+            messageErreur("Impossible d'ouvrir l'entrée");
+            
         default:
             messageErreur("Impossible d'éxecuter la fonction");
+            break;
         }
         
-        break;
+        return code;
         
     case 1:
         messageErreur("Un argument a été attendu et autre chose a été donné");
@@ -308,7 +493,7 @@ void procederCommande(vector< string > decoupe, Image &image) {
         break;
         
     case 3:
-        messageErreur("Un entier a été attendu et n'a pas été donné");
+        messageErreur("Un nombre a été attendu et n'a pas été donné");
         break;
         
     case 4:
@@ -328,13 +513,23 @@ void procederCommande(vector< string > decoupe, Image &image) {
         break;
         
     case 8:
-        messageErreur("Un nombre décimal a été attendu et n'a pas été donné (le programme n'accepte que les points)");
+        messageErreur("Un booléen (vrai/faux) a été attendu mais n'a pas été donné");
+        break;
+        
+    case 9:
+        messageErreur("Une chaine de caractères a été attendue mais n'a pas été donnée");
+        break;
+        
+    case 10:
+        messageErreur("La composante donnée n'est pas valide");
         break;
         
     default:
         messageErreur("Impossible d'analyser la commande");
         break;
     }
+    
+    return code;
 }
 
 void boucleDeCommandes(Image image) { // REPL
@@ -345,7 +540,7 @@ void boucleDeCommandes(Image image) { // REPL
         cout << "$ ";
         getline(cin, commandeTexte);
         
-        if (commandeTexte == "quitter" || commandeTexte == "exit") {
+        if (commandeTexte == "quitter") {
             continuer = false;
         } else {
             vector< string > decoupe;
