@@ -18,10 +18,10 @@
     * Pixel **C**
     * Image **C**
 * Fonctions **D**
-    * Gestion de fichier **D**
+    * Gestion de fichier **A**
         * Créer **C**
-        * Ouvrir **D**
-        * Enregistrer **D**
+        * Ouvrir **C**
+        * Enregistrer **C**
         * Importer **A**
     * Édition
         * Copier tout
@@ -30,24 +30,24 @@
         * Annuler
         * Refaire
     * Couleur **D**
-        * Teinte **A**
+        * Teinte **D**
         * Saturation **D**
-        * Luminosité **A**
-        * Contraste **A**
-    * Dessin **D**
-        * Trait **A**
+        * Luminosité **D**
+        * Contraste
+    * Dessin **C**
+        * Trait **C**
         * Rectangle **C**
-        * Cercle **A**
-        * Disque **A**
+        * Cercle **C**
+        * Disque **C**
     * Géométrie **D**
         * Zoomer
         * Pivoter **C**
-        * Retourner **D**
-        * Redimensionner **A**
-    * Conversion du mode **D**
+        * Retourner **C**
+        * Redimensionner **C**
+    * Conversion du mode **C**
         * Binaire **C**
         * Niveaux de gris **C**
-        * Couleur **D**
+        * Couleur **C**
     * Aide
 * Documentation
 

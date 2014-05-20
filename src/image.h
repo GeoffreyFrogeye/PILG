@@ -14,7 +14,8 @@ typedef struct Pixel {
 
 class Image {
 public:
-    Image(int dimensionX, int dimensionY, int maxComposante, PILG_Comp typeComposantes);
+    Image(int dimensionX, int dimensionY, int maxComposante,
+          PILG_Comp typeComposantes);
     // Getters
     int g_dimensionX() const;
     int g_dimensionY() const;

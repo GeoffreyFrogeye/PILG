@@ -1,12 +1,17 @@
 #include "image.h"
 
-Image::Image(int dimensionX, int dimensionY, int maxComposante, PILG_Comp typeComposantes): m_dimensionX(dimensionX), m_dimensionY(dimensionY), m_maxComposante(maxComposante), m_typeComposantes(typeComposantes) {
+Image::Image(int dimensionX, int dimensionY, int maxComposante,
+             PILG_Comp typeComposantes): m_dimensionX(dimensionX), m_dimensionY(dimensionY),
+    m_maxComposante(maxComposante), m_typeComposantes(typeComposantes) {
     Pixel pixelVide = g_pixelVide();
+    
     for (int xT = 0; xT < dimensionX; xT++) {
         std::vector< Pixel > colonne;
-        for (int yT = 0; yT < dimensionX; yT++) {
+        
+        for (int yT = 0; yT < dimensionY; yT++) {
             colonne.push_back(pixelVide);
         }
+        
         m_tab.push_back(colonne);
     }
 }
@@ -53,17 +58,21 @@ Pixel Image::g_pixelVide() const {
     Pixel pixel;
     pixel.typeComposantes = m_typeComposantes;
     pixel.maxComposante = m_maxComposante;
+    
     switch (pixel.typeComposantes) {
     case PILG_BIN:
         pixel.b = false;
         break;
+        
     case PILG_NIV:
         pixel.g = 0;
         break;
+        
     case PILG_RVB:
         pixel.r = pixel.v = pixel.b = 0;
         break;
     }
+    
     return pixel;
 }
 
@@ -73,20 +82,23 @@ Image Image::g_vide() const {
 
 // Validateurs
 bool Image::v_pixel(Pixel pixel) const {
-    if  (pixel.typeComposantes == m_typeComposantes
+    if (pixel.typeComposantes == m_typeComposantes
             && pixel.maxComposante == m_maxComposante) {
         switch (pixel.typeComposantes) {
         case PILG_BIN:
             return true;
             break;
+            
         case PILG_NIV:
             return (pixel.g <= pixel.maxComposante);
             break;
+            
         case PILG_RVB:
             return (pixel.r <= pixel.maxComposante
                     && pixel.v <= pixel.maxComposante
                     && pixel.b <= pixel.maxComposante);
             break;
+            
         default:
             return false;
             break;
