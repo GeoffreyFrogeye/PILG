@@ -316,30 +316,43 @@ int executerCommande(Commande commande, Image &image) {
         //     } else {
         //         return 2;
         //     }
-        // } else if (commande.fonction == "teinte") {
-        //     if (argumentPresent(commande, "v1")) {
-        //         if (teinte(image, image, commande.v1)) {
-        //             return 3;
-        //         }
-        //     } else {
-        //         return 2;
-        //     }
-        // } else if (commande.fonction == "saturation") {
-        //     if (argumentPresent(commande, "v1")) {
-        //         if (saturation(image, image, commande.v1)) {
-        //             return 3;
-        //         }
-        //     } else {
-        //         return 2;
-        //     }
-        // } else if (commande.fonction == "luminosite") {
-        //     if (argumentPresent(commande, "v1")) {
-        //         if (luminosite(image, image, commande.v1)) {
-        //             return 3;
-        //         }
-        //     } else {
-        //         return 2;
-        //     }
+    } else if (commande.fonction == "teinte") {
+        if (image.g_typeComposantes() == PILG_RVB) {
+            if (argumentPresent(commande, "v1")) {
+                if (teinte(image, image, commande.v1)) {
+                    return 3;
+                }
+            } else {
+                return 2;
+            }
+        } else {
+            return 11;
+        }
+    } else if (commande.fonction == "saturation") {
+        if (image.g_typeComposantes() == PILG_RVB) {
+            if (argumentPresent(commande, "v1")) {
+                if (saturation(image, image, commande.v1)) {
+                    return 3;
+                }
+            } else {
+                return 2;
+            }
+        } else {
+            return 11;
+        }
+    } else if (commande.fonction == "luminosite") {
+        if (image.g_typeComposantes() == PILG_RVB) {
+            if (argumentPresent(commande, "v1")) {
+                if (luminosite(image, image, commande.v1)) {
+                    return 3;
+                }
+            } else {
+                return 2;
+            }
+        } else {
+            return 11;
+        }
+        
         // } else if (commande.fonction == "contraste") {
         //     if (argumentPresent(commande, "v1")) {
         //         if (contraste(image, image, commande.v1)) {
@@ -522,6 +535,10 @@ int procederCommande(vector< string > decoupe, Image &image) {
         
     case 10:
         messageErreur("La composante donnée n'est pas valide");
+        break;
+        
+    case 11:
+        messageErreur("Il est nécessaire d'avoir une image en mode RVB pour executer cette commande");
         break;
         
     default:

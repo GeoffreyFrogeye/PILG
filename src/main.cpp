@@ -27,6 +27,7 @@ int main(int argc, char *args[]) {
         
         code = procederCommande(decoupe, image);
     } else {
+        actualiserDimensionsEcran();
         afficherImage(image);
         boucleDeCommandes(image);
         code = 0;

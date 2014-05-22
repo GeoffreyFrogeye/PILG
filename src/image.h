@@ -2,7 +2,7 @@
 
 typedef enum {PILG_BIN, PILG_NIV, PILG_RVB} PILG_Comp;
 
-typedef struct Pixel {
+typedef struct {
     PILG_Comp typeComposantes;
     int maxComposante;
     int r;
@@ -30,7 +30,7 @@ public:
     // Validateurs
     bool v_pixel(Pixel pixel) const;
     bool v_dimensions(int x, int y) const;
-
+    
 private:
     // Variables
     int m_dimensionX;

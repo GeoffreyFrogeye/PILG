@@ -3,6 +3,8 @@
 
 int fenetreDimensionX; // Stocke les dimensions X de la fenêtre
 int fenetreDimensionY; // Stocke les dimensions Y de la fenêtre
+int ecranX = 1024;
+int ecranY = 1080;
 bool fenetreOuverte = false;
 SDL_Surface *fenetreEcran;
 SDL_Surface *fenetreImage;
@@ -11,16 +13,16 @@ SDL_Surface *fenetreImage;
 void definirPixel(SDL_Surface *surface, int x, int y, Uint32 pixel) {
     int nbOctetsParPixel = surface->format->BytesPerPixel;
     Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * nbOctetsParPixel;
-
+    
     switch (nbOctetsParPixel) {
     case 1:
         *p = pixel;
         break;
-
+        
     case 2:
         *(Uint16 *)p = pixel;
         break;
-
+        
     case 3:
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
             p[0] = (pixel >> 16) & 0xff;
@@ -31,16 +33,16 @@ void definirPixel(SDL_Surface *surface, int x, int y, Uint32 pixel) {
             p[1] = (pixel >> 8) & 0xff;
             p[2] = (pixel >> 16) & 0xff;
         }
-
+        
         break;
-
+        
     case 4:
         *(Uint32 *)p = pixel;
         break;
     }
 }
 
-void setNomFenetre(std::string nom) { // Change le nom de la fenêtre
+void s_nomFenetre(std::string nom) { // Change le nom de la fenêtre
     SDL_WM_SetCaption(nom.c_str(), NULL);
 }
 
@@ -68,7 +70,7 @@ void afficherFenetre() {
 
 void attendreFenetre() {
     SDL_Event evenement;
-
+    
     do {
         SDL_WaitEvent(&evenement);
     } while (evenement.type != SDL_QUIT &&
@@ -93,7 +95,15 @@ void ouvrirFenetre(int dimensionX, int dimensionY,
     fenetreImage = SDL_CreateRGBSurface(SDL_HWSURFACE, fenetreDimensionX,
                                         fenetreDimensionY, 32, 0, 0, 0, 0);
     SDL_FillRect(fenetreImage, NULL, SDL_MapRGB(fenetreEcran->format, 0, 0, 0));
-    setNomFenetre(nom);
+    s_nomFenetre(nom);
     SDL_LockSurface(fenetreImage);
     fenetreOuverte = true;
+}
+
+void actualiserDimensionsEcran() {
+    SDL_Init(SDL_INIT_VIDEO);
+    const SDL_VideoInfo *info = SDL_GetVideoInfo();
+    ecranX = info->current_w;
+    ecranY = info->current_h;
+    SDL_Quit();
 }

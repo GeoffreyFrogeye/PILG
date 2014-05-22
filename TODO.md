@@ -30,9 +30,9 @@
         * Annuler
         * Refaire
     * Couleur **D**
-        * Teinte **D**
-        * Saturation **D**
-        * Luminosité **D**
+        * Teinte **C**
+        * Saturation **C**
+        * Luminosité **C**
         * Contraste
     * Dessin **C**
         * Trait **C**
@@ -48,7 +48,6 @@
         * Binaire **C**
         * Niveaux de gris **C**
         * Couleur **C**
-    * Aide
 * Documentation
 
 

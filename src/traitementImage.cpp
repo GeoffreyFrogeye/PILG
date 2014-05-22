@@ -369,28 +369,63 @@ int importer(Image entree, Image &sortie, string nomFichier, int x, int y) {
 
 // Couleur
 
-
 int teinte(Image entree, Image &sortie,
            float teinte) {   // Change la teinte de l'image
-    // for (int x = 0, x = image.g_dimensionX(), x++) {
-    //     for (int y = 0, y = image.g_dimensionY(), y++) {
-    //         rvbVersTsl();
-    //         g_pixel(x, y);
-    //     }
-    // }
-    // return 1;
+    sortie = entree.g_vide();
+    Pixel pixel;
+    TSL tsl;
+    
+    for (int x = 0; x < sortie.g_dimensionX(); x++) {
+        for (int y = 0; y < sortie.g_dimensionY(); y++) {
+            entree.g_pixel(x, y, pixel);
+            rvb2tsl(pixel, tsl);
+            tsl.t += teinte;
+            tsl2rvb(tsl, pixel);
+            sortie.s_pixel(x, y, pixel);
+        }
+    }
+    
+    return 0;
 }
 
 int saturation(Image entree, Image &sortie,
                float saturation) {   // Sature l'image
-    // Utilisation de la méthode TSL
-    return 1;
+    sortie = entree.g_vide();
+    Pixel pixel;
+    TSL tsl;
+    
+    for (int x = 0; x < sortie.g_dimensionX(); x++) {
+        for (int y = 0; y < sortie.g_dimensionY(); y++) {
+            entree.g_pixel(x, y, pixel);
+            rvb2tsl(pixel, tsl);
+            tsl.s += saturation;
+            tsl.s = tsl.s > 1 ? 1 : (tsl.s < 0 ? 0 : tsl.s);
+            tsl2rvb(tsl, pixel);
+            sortie.s_pixel(x, y, pixel);
+        }
+    }
+    
+    return 0;
 }
 
 int luminosite(Image entree, Image &sortie,
                float luminosite) {   // Augmente la luminosité de l'image
-    // Utilisation de la méthode TSL
-    return 1;
+    sortie = entree.g_vide();
+    Pixel pixel;
+    TSL tsl;
+    
+    for (int x = 0; x < sortie.g_dimensionX(); x++) {
+        for (int y = 0; y < sortie.g_dimensionY(); y++) {
+            entree.g_pixel(x, y, pixel);
+            rvb2tsl(pixel, tsl);
+            tsl.l += luminosite;
+            tsl.l = tsl.l > 1 ? 1 : (tsl.l < 0 ? 0 : tsl.l);
+            tsl2rvb(tsl, pixel);
+            sortie.s_pixel(x, y, pixel);
+        }
+    }
+    
+    return 0;
 }
 
 int contraste(Image entree, Image &sortie,

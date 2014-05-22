@@ -120,6 +120,9 @@ int appliquer(Image &image, string nomFichier, bool ASCII) {
     ouvrir(image, "tests/" + nomFichier);
     Pixel pixel;
     image.g_pixel(image.g_dimensionX() / 2, image.g_dimensionY() / 2, pixel);
+    // teinte(image, image, 180);
+    // saturation(image, image, 0.3);
+    // luminosite(image, image, -0.5);
     // trait(image, image, image.g_dimensionX() / 4, image.g_dimensionY() / 4,
     //       image.g_dimensionX() - image.g_dimensionX() / 4,
     //       image.g_dimensionY() - image.g_dimensionY() / 4, pixel);
@@ -147,25 +150,43 @@ int main(int argc, char *args[]) {
     #endif
     presentation();
     cout << "Éxecution des instructions dans testing.cpp." << endl << endl;
-#define DIMENSIONS 50
-    Image image1 = genererRoue(DIMENSIONS * 2, DIMENSIONS, 255);
-    Image image2 = genererRoue(DIMENSIONS * 2, DIMENSIONS, 255);
-    // Image image1; // Tester si ça marche
+    actualiserDimensionsEcran();
+#define DIMENSIONS 255
+    // Image image1 = genererRoue(DIMENSIONS, DIMENSIONS, 255);
+    Image image1 = imageDefaut();
+    // Image image = image1.g_vide();
+    // ouvrir(image1, "tests/PikachuP6.ppm");
+    // Image image2 = genererRoue(DIMENSIONS * 2, DIMENSIONS, 255);
     // afficherImage(image1);
     // attendreFenetre();
+    // Ouvrir fichier
+    // appliquer(image1, "PikachuP1.pbm", true);
+    // appliquer(image1, "PikachuP2.pgm", true);
+    // appliquer(image1, "PikachuP3.ppm", true);
+    // appliquer(image1, "PikachuP4.pbm", false);
+    // appliquer(image1, "PikachuP5.pgm", false);
+    // appliquer(image1, "PikachuP6.ppm", false);
+    // // Chronomètre
+    // int tempsDepart = clock();
+    // journal << "Temps d'execution: " << (float)(clock() - tempsDepart) / 1000000 <<
+    //         "s" << endl;
+    // // Afficher différentes tailles de fenêtre
+    // for (int i = 500; i < 1200; i += 10) {
+    //     image1 = genererRoue(i * 2, i, 255);
+    //     afficherImage(image1);
+    //     // attendreFenetre();
+    // }
     // // Roue
     // Image image = image1.g_vide();
     // for (float i = 0; i < 2 * PI; i += 0.1) {
     //     pivoter(image1, image, DIMENSIONS/2, DIMENSIONS/2, i);
     //     afficherImage(image);
     // }
-    // Ouvrir fichier
-    appliquer(image1, "PikachuP1.pbm", true);
-    appliquer(image1, "PikachuP2.pgm", true);
-    appliquer(image1, "PikachuP3.ppm", true);
-    appliquer(image1, "PikachuP4.pbm", false);
-    appliquer(image1, "PikachuP5.pgm", false);
-    appliquer(image1, "PikachuP6.ppm", false);
+    // // Roue des couleurs
+    // for (float i = -1; i <= 1; i += 0.01) {
+    //     teinte(image1, image, i);
+    //     afficherImage(image);
+    // }
     // // Neige en dégradé
     // for (int i; i < 300; i++) {
     //     afficherImage(genererBruit(200, 200));
@@ -202,7 +223,7 @@ int main(int argc, char *args[]) {
     //     afficherFenetre();
     // }
     // cout << "Éxecution du programme terminée. Vous pouvez quitter la fenêtre." << endl;
-    fermerFenetre();
+    // fermerFenetre();
     journal.close();
     return 0;
 }
