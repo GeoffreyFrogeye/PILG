@@ -66,14 +66,14 @@ int tsl2rvb(TSL entree, Pixel &sortie) {
     }
     
     if (entree.s == 0) {
-        fill_n(c, 3, entree.l * 255);
+        fill_n(c, 3, entree.l);
     } else {
         fill_n(t3, 3, 0);
         fill_n(c, 3, 0);
         t2 = entree.l < 0.5 ? entree.l * (1 + entree.s) : entree.l + entree.s - entree.l
              * entree.s;
         t1 = 2 * entree.l - t2;
-        entree.t /= 360;
+        entree.t /= 360.0;
         t3[0] = entree.t + 1 / 3.0;
         t3[1] = entree.t;
         t3[2] = entree.t - 1 / 3.0;
@@ -97,12 +97,11 @@ int tsl2rvb(TSL entree, Pixel &sortie) {
                 c[i] = t1;
             }
         }
-        
-        sortie.r = c[0] * sortie.maxComposante;
-        sortie.v = c[1] * sortie.maxComposante;
-        sortie.b = c[2] * sortie.maxComposante;
     }
     
+    sortie.r = c[0] * sortie.maxComposante;
+    sortie.v = c[1] * sortie.maxComposante;
+    sortie.b = c[2] * sortie.maxComposante;
     return 0;
 }
 

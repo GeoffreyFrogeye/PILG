@@ -398,7 +398,7 @@ int saturation(Image entree, Image &sortie,
         for (int y = 0; y < sortie.g_dimensionY(); y++) {
             entree.g_pixel(x, y, pixel);
             rvb2tsl(pixel, tsl);
-            tsl.s += saturation;
+            tsl.s *= saturation;
             tsl.s = tsl.s > 1 ? 1 : (tsl.s < 0 ? 0 : tsl.s);
             tsl2rvb(tsl, pixel);
             sortie.s_pixel(x, y, pixel);
@@ -418,7 +418,7 @@ int luminosite(Image entree, Image &sortie,
         for (int y = 0; y < sortie.g_dimensionY(); y++) {
             entree.g_pixel(x, y, pixel);
             rvb2tsl(pixel, tsl);
-            tsl.l += luminosite;
+            tsl.l *= luminosite;
             tsl.l = tsl.l > 1 ? 1 : (tsl.l < 0 ? 0 : tsl.l);
             tsl2rvb(tsl, pixel);
             sortie.s_pixel(x, y, pixel);

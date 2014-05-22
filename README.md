@@ -12,7 +12,7 @@ Nos noms complets et le nom du lycée sont masqués pour des raisons d'intimité
 ###Le programme
 Ce programme est un éditeur basique d'images [PBM/PGM/PPM](http://fr.wikipedia.org/wiki/Portable_pixmap) s’exécutant en ligne de commande.
 
-*Version :* v1.0.0
+*Version :* v1.0.1
 
 *Status :* [![Build Status](https://travis-ci.org/GeoffreyFrogeye/PILG.svg?branch=master)](https://travis-ci.org/GeoffreyFrogeye/PILG)
 
