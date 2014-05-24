@@ -110,7 +110,8 @@ int analyserDecoupe(Commande &commande, vector< string > decoupe,
                 if (chaineVersEntier(decoupe[i], commande.y2)) {
                     return 3;
                 }
-            } else if (decoupe[i] == "-v1" || decoupe[i] == "-v") {
+            } else if (decoupe[i] == "-v1" || decoupe[i] == "-v" || decoupe[i] == "-a"
+                       || decoupe[i] == "-r") {
                 commande.argumentsPresents.push_back("v1");
                 i++;
                 
